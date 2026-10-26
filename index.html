@@ -1,0 +1,2417 @@
+<!DOCTYPE html>
+<html lang="pl" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instrukcja Użytkownika i Przewodnik Wdrożeniowy | easyfiscal</title>
+  <meta name="description" content="Oficjalna instrukcja użytkownika easyfiscal w języku polskim. Konfiguracja systemu, certyfikowanych drukarek fiskalnych online, integracja z Base.com (BaseLinker) i easySales oraz obsługa e-paragonów online.">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ========================================================================
+       TOP HEADER BAR
+       ======================================================================== -->
+  <header class="header-bar">
+    <div class="header-left">
+      <button class="btn btn-icon mobile-menu-toggle" id="mobileMenuToggle" aria-label="Otwórz menu">
+        ☰
+      </button>
+
+      <a href="#hero" class="brand-logo-wrap">
+        <img src="assets/logoeasyfiscal.png" alt="easyfiscal Logo" class="brand-logo">
+        <span class="brand-badge">Podręcznik v2.4</span>
+      </a>
+
+      <div class="search-box-wrap">
+        <input type="text" id="docSearchInput" class="search-input" placeholder="Szukaj w instrukcji... (Ctrl+K)">
+        <span class="search-icon">🔍</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="crk-status-pill" title="Status integracji z Centralnym Repozytorium Kas">
+        <span class="crk-dot"></span>
+        <span>CRK Online</span>
+      </div>
+
+      <button class="btn btn-icon" id="themeToggleBtn" title="Przełącz motyw (jasny/ciemny)">
+        <span id="themeIcon">🌙</span>
+      </button>
+
+      <button class="btn btn-primary" onclick="window.print()" title="Otwórz widok druku / Zapisz do PDF (⌘+P)">
+        🖨️ Drukuj / A4
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN DOCUMENTATION LAYOUT
+       ======================================================================== -->
+  <div class="docs-layout">
+
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="docs-sidebar" id="docsSidebar">
+      <div class="sidebar-progress">
+        <div class="progress-header">
+          <span>Postęp czytania</span>
+          <span id="progressPercentText">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="readingProgressBar"></div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div>
+          <div class="nav-group-title">WPROWADZENIE</div>
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#hero" class="active"><span>Przegląd i Atuty</span></a></li>
+            <li class="nav-item"><a href="#rozdzial-1"><span>1. Podstawy Prawne E-Paragonu</span></a></li>
+            <li class="nav-item"><a href="#rozdzial-2"><span>2. Wymagania i Kompatybilność</span></a></li>
+            <li class="nav-item"><a href="#drukarki-online-katalog"><span>• Drukarki Online</span> <span class="nav-badge">Katalog</span></a></li>
+            <li class="nav-item"><a href="#pobieranie-aplikacji"><span>• Pobieranie Aplikacji</span> <span class="nav-badge">Instalatory</span></a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="nav-group-title">KONFIGURACJA SPRZĘTU</div>
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#rozdzial-3"><span>3. Drukarki Fiskalne (Hardware)</span></a></li>
+            <li class="nav-item"><a href="#schematy-wyswietlaczy"><span>• Schematy Wyświetlaczy</span> <span class="nav-badge">Schematy</span></a></li>
+            <li class="nav-item"><a href="#programy-narzedziowe"><span>• Aplikacje i Narzędzia</span> <span class="nav-badge">Narzędzia</span></a></li>
+            <li class="nav-item"><a href="#rozdzial-4"><span>4. Aplikacja Agent easyfiscal</span></a></li>
+            <li class="nav-item"><a href="#terminal-simulator"><span>• Symulator Terminala CLI</span> <span class="nav-badge">CLI</span></a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="nav-group-title">INTEGRACJE OMS</div>
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#rozdzial-5"><span>5. Integracja z BaseLinker</span></a></li>
+            <li class="nav-item"><a href="#symulator-base"><span>• Generator Reguł Base</span> <span class="nav-badge">Narzędzie</span></a></li>
+            <li class="nav-item"><a href="#rozdzial-6"><span>6. Integracja z Sellasist</span></a></li>
+            <li class="nav-item"><a href="#symulator-sellasist"><span>• Generator Klucza Sellasist</span> <span class="nav-badge">Narzędzie</span></a></li>
+            <li class="nav-item"><a href="#rozdzial-7"><span>7. Personalizacja E-Paragonu</span></a></li>
+            <li class="nav-item"><a href="#symulator-paragonu"><span>• Live Preview E-Paragonu</span> <span class="nav-badge">Podgląd</span></a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="nav-group-title">FINANSE I SERWIS</div>
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#rozdzial-8"><span>8. Raporty i Księgowość</span></a></li>
+            <li class="nav-item"><a href="#kalkulator-roi"><span>• Kalkulator Oszczędności</span> <span class="nav-badge">ROI</span></a></li>
+            <li class="nav-item"><a href="#rozdzial-9"><span>9. Rozwiązywanie Problemów</span></a></li>
+            <li class="nav-item"><a href="#zalacznik-checklist"><span>Załącznik: Checklist</span> <span class="nav-badge" id="checklistCompletedCount">0/10</span></a></li>
+          </ul>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="docs-content">
+
+      <!-- ====================================================================
+           HERO SECTION
+           ==================================================================== -->
+      <section class="hero-banner" id="hero">
+        <div class="hero-eyebrow">
+          <span>⚡ Oficjalna Dokumentacja i Baza Wiedzy</span>
+        </div>
+        <h1 class="hero-title">
+          Podręcznik Wdrożeniowy <span>easyfiscal</span>
+        </h1>
+        <p class="hero-description">
+          Kompleksowy przewodnik konfiguracji automatycznego systemu e-paragonów dla sklepów internetowych. 
+          Dowiedz się, jak wdrożyć system w 30–60 minut, wstępnie skonfigurować certyfikowaną drukarkę fiskalną online 
+          (kompaktową, stacjonarną lub modułową) oraz zintegrować przepływ zamówień z systemami OMS: <strong>Base.com (BaseLinker)</strong> i <strong>easySales</strong>.
+        </p>
+
+        <div class="hero-actions" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <a href="#rozdzial-3" class="btn btn-primary">
+            🖨️ Konfiguracja Drukarki
+          </a>
+          <a href="#rozdzial-5" class="btn btn-outline">
+            🔄 Integracja z BaseLinker
+          </a>
+          <a href="#zalacznik-checklist" class="btn btn-outline">
+            📋 Wdrożeniowa Lista Kontrolna
+          </a>
+        </div>
+
+        <!-- 4 Highlights Cards -->
+        <div class="hero-highlights">
+          <div class="highlight-card">
+            <div class="highlight-icon">💰</div>
+            <div class="highlight-title">Stała Cena Abonamentu</div>
+            <div class="highlight-desc">Brak limitu i prowizji od liczby transakcji. Transparentne koszty dla każdego wolumenu sprzedaży.</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-icon">🔌</div>
+            <div class="highlight-title">Wszystkie Integracje w Cenie</div>
+            <div class="highlight-desc">BaseLinker, easySales, WooCommerce i inne bez dopłat za moduły czy zewnętrzne konektory.</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-icon">⚖️</div>
+            <div class="highlight-title">100% Zgodności z Prawem</div>
+            <div class="highlight-desc">Oficjalna certyfikacja MF oraz bezpieczna transmisja danych do Centralnego Repozytorium Kas (CRK).</div>
+          </div>
+          <div class="highlight-card">
+            <div class="highlight-icon">⏱️</div>
+            <div class="highlight-title">Wdrożenie w 30–60 Min</div>
+            <div class="highlight-desc">Automatyczny instalator, gotowe profile drukarek EMAR SERWIS i bezproblemowa integracja webhooków.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architektura Przepływu Danych -->
+      <div class="architecture-diagram">
+        <h3 style="margin-top:0;">Architektura Przepływu Danych w Systemie easyfiscal</h3>
+        <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+          Poniższy schemat obrazuje bezobsługowy obieg zamówienia — od zakupu klienta w marketplace po rejestrację fiskalną i doręczenie e-paragonu:
+        </p>
+
+        <div class="diagram-flow">
+          <div class="diagram-step">
+            <span class="step-number">1</span>
+            <span class="step-label">Zakup w Sklepie</span>
+            <span class="step-subtext">Allegro, Amazon, e-sklep</span>
+          </div>
+          <span class="diagram-arrow">➔</span>
+          <div class="diagram-step">
+            <span class="step-number">2</span>
+            <span class="step-label">System OMS</span>
+            <span class="step-subtext">Base.com / easySales</span>
+          </div>
+          <span class="diagram-arrow">➔</span>
+          <div class="diagram-step accent">
+            <span class="step-number">3</span>
+            <span class="step-label">easyfiscal Middleware</span>
+            <span class="step-subtext">Pobranie i walidacja danych</span>
+          </div>
+          <span class="diagram-arrow">➔</span>
+          <div class="diagram-step">
+            <span class="step-number">4</span>
+            <span class="step-label">Drukarka Fiskalna</span>
+            <span class="step-subtext">Certyfikowane Urządzenie Online</span>
+          </div>
+          <span class="diagram-arrow">➔</span>
+          <div class="diagram-step accent">
+            <span class="step-number">5</span>
+            <span class="step-label">E-Paragon & CRK</span>
+            <span class="step-subtext">Link SMS/email + Raport MF</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ====================================================================
+           ROZDZIAŁ 1: WPROWADZENIE I PODSTAWY PRAWNE
+           ==================================================================== -->
+      <section class="doc-section" id="rozdzial-1">
+        <div class="section-header">
+          <span class="section-tag">Rozdział 1</span>
+          <h2 class="section-title">Wprowadzenie i Podstawy Prawne E-Paragonu</h2>
+          <p class="section-lead">
+            Dowiedz się, czym różni się e-paragon od tradycyjnego paragonu papierowego oraz jak polskie prawo reguluje cyfrową fiskalizację w e-commerce.
+          </p>
+        </div>
+
+        <h3>Co to jest e-paragon fiskalny?</h3>
+        <p>
+          <strong>E-paragon</strong> to pełnoprawny, cyfrowy dokument fiskalny wygenerowany bezpośrednio przez certyfikowaną pamięć 
+          fiskalną drukarki online i przesłany do Centralnego Repozytorium Kas (CRK). Zastępuje on w 100% tradycyjny pasek papieru termicznego. 
+          Kupujący otrzymuje unikalny, bezpieczny link (lub kod QR), pod którym może w dowolnym momencie wyświetlić i pobrać dokument.
+        </p>
+
+        <div class="callout info">
+          <div class="callout-icon">ℹ️</div>
+          <div class="callout-body">
+            <div class="callout-title">Podstawa Prawna w Polsce</div>
+            Zgodnie z <strong>art. 111 ust. 3a pkt 1 lit. b Ustawy o podatku od towarów i usług</strong> oraz Rozporządzeniem Ministra Finansów 
+            w sprawie kas rejestrujących, podatnicy prowadzący ewidencję sprzedaży mogą wystawiać i wydawać nabywcy paragon fiskalny w postaci elektronicznej 
+            za jego zgodą i w sposób z nim uzgodniony. Zgoda jest udzielana automatycznie poprzez akceptację regulaminu sklepu internetowego.
+          </div>
+        </div>
+
+        <h3>Kluczowe korzyści dla przedsiębiorcy</h3>
+        <ul>
+          <li><strong>Brak kosztów papieru i eksploatacji:</strong> Oszczędność na rolkach termicznych, zużyciu głowic drukujących i energii.</li>
+          <li><strong>Przyspieszenie pakowania o 30–40%:</strong> Magazynier nie musi czekać na fizyczny wydruk, odrywać paragonu i szukać odpowiedniej paczki. Dokument jest wysyłany elektronicznie po zeskanowaniu etykiety.</li>
+          <li><strong>E-Paragon nie wyblaknie:</strong> Klient posiada trwały dostęp do dokumentu w chmurze, co diametralnie upraszcza proces reklamacji i zwrotów konsumenckich.</li>
+          <li><strong>Obsługa wielu magazynów z 1 drukarki:</strong> Jedna centralna drukarka fiskalna podpięta do easyfiscal może obsługiwać wysyłkę z kilku rozproszonych magazynów.</li>
+        </ul>
+
+        <div class="callout warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <div class="callout-title">Ważne: E-Paragon to NIE jest zwykły plik PDF!</div>
+            Zwykły plik PDF wygenerowany w programie fakturowym bez udziału homologowanej kasy fiskalnej nie spełnia wymogów fiskalizacji dla osób fizycznych (B2C). 
+            easyfiscal współpracuje z fizyczną drukarką fiskalną online, która nadaje unikalny numer unikatowy, numer ewidencyjny kasy oraz podpis kryptograficzny MF.
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           ROZDZIAŁ 2: WYMAGANIA SPRZĘTOWE I SYSTEMOWE
+           ==================================================================== -->
+      <section class="doc-section" id="rozdzial-2">
+        <div class="section-header">
+          <span class="section-tag">Rozdział 2</span>
+          <h2 class="section-title">Wymagania Sprzętowe i Kompatybilność</h2>
+          <p class="section-lead">
+            Zestawienie urządzeń fiskalnych dopuszczonych do obsługi e-paragonu oraz wymagania infrastruktury sieciowej.
+          </p>
+        </div>
+
+        <h3>Standardy certyfikowanych drukarek fiskalnych online</h3>
+        <p>
+          Do wystawiania e-paragonów wymagana jest certyfikowana drukarka fiskalna z funkcją <strong>ONLINE</strong> 
+          posiadająca oprogramowanie układowe w wersji <strong>minimum 2.20</strong>:
+        </p>
+
+        <div class="table-responsive">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Kategoria Sprzętowa</th>
+                <th>Charakterystyka Architektury</th>
+                <th>Wersja Firmware</th>
+                <th>Zalecany Interfejs</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Standard 1: Kompaktowa mobilna (marka NOVITUS)</strong></td>
+                <td>Drukarka mobilna/kompaktowa z graficznym wyświetlaczem LCD (132x64 px), protokół XML, port TCP 8000</td>
+                <td>min. 2.20</td>
+                <td>Ethernet LAN / Wi-Fi</td>
+                <td><span class="badge-tag green">Pełna zgodność</span></td>
+              </tr>
+              <tr>
+                <td><strong>Standard 2: Stacjonarna systemowa (marka POSNET)</strong></td>
+                <td>Wysokowydajna stacjonarna drukarka z wieloliniowym wyświetlaczem OLED/LCD, protokół Thermal standard, port TCP 6800</td>
+                <td>min. 2.20</td>
+                <td>Ethernet LAN (TCP/IP)</td>
+                <td><span class="badge-tag green">Pełna zgodność</span></td>
+              </tr>
+              <tr>
+                <td><strong>Standard 3: Stacjonarna modułowa (marka ELZAB)</strong></td>
+                <td>Modułowa stacjonarna drukarka z 4-liniowym wyświetlaczem alfanumerycznym VFD/LCD, port TCP 11115 lub 6800</td>
+                <td>min. 2.20</td>
+                <td>Ethernet LAN (TCP/IP)</td>
+                <td><span class="badge-tag green">Pełna zgodność</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout success">
+          <div class="callout-icon">🤝</div>
+          <div class="callout-body">
+            <div class="callout-title">Nie masz jeszcze drukarki? Oferta Partnerska EMAR SERWIS</div>
+            Oficjalny partner easyfiscal — <strong>EMAR SERWIS</strong> (<a href="https://emarserwis.pl" target="_blank" rel="noopener">emarserwis.pl</a>) 
+            oferuje urządzenia fiskalne skonfigurowane fabrycznie pod aplikację easyfiscal.
+            <br>
+            Użyj kodu rabatowego: <strong>easyfiscal</strong>, aby otrzymać <strong>10% zniżki</strong> na zakup drukarki. 
+            Dzięki prekonfiguracji czas samodzielnego uruchomienia skraca się do <strong>30 minut</strong>!
+          </div>
+        </div>
+
+        <div id="drukarki-online-katalog">
+          <h3>Rekomendowane Drukarki Fiskalne Online</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Wybierz certyfikowany model drukarki online w pełni zgodny z easyfiscal. Skorzystaj z bezpośrednich odnośników do oferty partnerskiej lub kart katalogowych producentów:
+          </p>
+
+          <div class="online-printers-grid">
+            <!-- Drukarka 1: Standard 1 Mobilna -->
+            <div class="online-printer-card">
+              <div>
+                <div class="online-printer-header">
+                  <span class="badge-tag green">Standard 1 (Novitus)</span>
+                  <span class="badge-tag">Mobilna / Sieciowa</span>
+                </div>
+                <div class="online-printer-title">
+                  <span>📱</span> Kompaktowa Drukarka Mobilna Online
+                </div>
+                <p class="online-printer-desc">
+                  Lekkie i poręczne urządzenie mobilne z graficznym wyświetlaczem LCD. Idealne do mniejszych biur, magazynów oraz sprzedaży wielokanałowej. Pełna obsługa e-paragonu przez protokół XML.
+                </p>
+                <div class="online-printer-meta">
+                  <div class="online-printer-meta-row">
+                    <span class="online-printer-meta-label">Interfejs sieciowy:</span>
+                    <span class="online-printer-meta-val">Ethernet LAN / Wi-Fi</span>
+                  </div>
+                  <div class="online-printer-meta-row">
+                    <span class="online-printer-meta-label">Domyślny port TCP:</span>
+                    <span class="online-printer-meta-val">8000</span>
+                  </div>
+                  <div class="online-printer-meta-row">
+                    <span class="online-printer-meta-label">Zgodność Firmware:</span>
+                    <span class="online-printer-meta-val">min. v2.20 (Online)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="online-printer-actions">
+                <a href="https://emarserwis.pl" class="btn btn-primary" target="_blank" rel="noopener">
+                  🛒 Kup w EMAR SERWIS (-10%)
+                </a>
+                <a href="https://novitus.pl/produkty/drukarki-fiskalne" class="btn btn-outline" target="_blank" rel="noopener">
+                  🌐 Karta Novitus
+                </a>
+              </div>
+            </div>
+
+            <!-- Drukarka 2: Standard 2 Stacjonarna POSNET -->
+            <div class="online-printer-card">
+              <div>
+                <div class="online-printer-header">
+                  <span class="badge-tag blue">Standard 2 (Posnet)</span>
+                  <span class="badge-tag gold">Wysoki Wolumen</span>
+                </div>
+                <div class="online-printer-title">
+                  <span>🖥️</span> Stacjonarna Drukarka Systemowa Online
+                </div>
+                <p class="online-printer-desc">
+                  Wysokowydajna drukarka stacjonarna z wyświetlaczem OLED/LCD, przeznaczona do intensywnego wystawiania tysięcy e-paragonów na dobę. Niezawodny protokół sieciowy Thermal standard.
+                </p>
+                <div class="online-printer-meta">
+                  <div class="online-printer-meta-row">
+                    <span class="online-printer-meta-label">Interfejs sieciowy:</span>
+                    <span class="online-printer-meta-val">Ethernet LAN (RJ-45)</span>
+                  </div>
+                  <div class="online-printer-meta-row">
+                    <span class="online-printer-meta-label">Domyślny port TCP:</span>
+                    <span class="online-printer-meta-val">6800</span>
+                  </div>
+                  <div class="online-printer-meta-row">
+                    <span class="online-printer-meta-label">Zgodność Firmware:</span>
+                    <span class="online-printer-meta-val">min. v2.20 (Online)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="online-printer-actions">
+                <a href="https://emarserwis.pl" class="btn btn-primary" target="_blank" rel="noopener">
+                  🛒 Kup w EMAR SERWIS (-10%)
+                </a>
+                <a href="https://www.posnet.com.pl/produkty/kategoria/drukarki-fiskalne-online" class="btn btn-outline" target="_blank" rel="noopener">
+                  🌐 Karta Posnet
+                </a>
+              </div>
+            </div>
+
+            <!-- Drukarka 3: Standard 3 Modułowa ELZAB -->
+            <div class="online-printer-card">
+              <div>
+                <div class="online-printer-header">
+                  <span class="badge-tag gold">Standard 3 (Elzab)</span>
+                  <span class="badge-tag">Modułowa POS</span>
+                </div>
+                <div class="online-printer-title">
+                  <span>📟</span> Stacjonarna Modułowa Drukarka Online
+                </div>
+                <p class="online-printer-desc">
+                  Modułowe urządzenie fiskalne z wyświetlaczem VFD/LCD, dedykowane do stabilnej pracy ciągłej w środowiskach magazynowych i serwerowych. Wygodna integracja TCP/IP.
+                </p>
+                <div class="online-printer-meta">
+                  <div class="online-printer-meta-row">
+                    <span class="online-printer-meta-label">Interfejs sieciowy:</span>
+                    <span class="online-printer-meta-val">Ethernet LAN (RJ-45)</span>
+                  </div>
+                  <div class="online-printer-meta-row">
+                    <span class="online-printer-meta-label">Domyślny port TCP:</span>
+                    <span class="online-printer-meta-val">11115 / 6800</span>
+                  </div>
+                  <div class="online-printer-meta-row">
+                    <span class="online-printer-meta-label">Zgodność Firmware:</span>
+                    <span class="online-printer-meta-val">min. v2.20 (Online)</span>
+                  </div>
+                </div>
+              </div>
+              <div class="online-printer-actions">
+                <a href="https://emarserwis.pl" class="btn btn-primary" target="_blank" rel="noopener">
+                  🛒 Kup w EMAR SERWIS (-10%)
+                </a>
+                <a href="https://www.elzab.com.pl" class="btn btn-outline" target="_blank" rel="noopener">
+                  🌐 Karta Elzab
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Wymagania systemowe dla komputera</h3>
+        <ul>
+          <li><strong>System operacyjny:</strong>
+            <ul>
+              <li><strong>Windows:</strong> Windows 10 (lub nowszy).</li>
+              <li><strong>macOS:</strong> macOS Ventura (lub nowszy) – wspierane procesory: Apple Silicon (M1/M2/M3/M4) oraz Intel.</li>
+              <li><strong>Linux:</strong> Linux 64-bit (x86_64) albo aarch64 (np. Raspberry Pi i pokrewne minikomputery; wymagana biblioteka openssl).</li>
+            </ul>
+          </li>
+          <li><strong>Integrator zamówień:</strong> Aktywne konto w systemie <strong>BaseLinker</strong> lub <strong>Sellasist</strong>.</li>
+          <li><strong>Sieć i połączenie:</strong> Dostęp do sieci internetowej za pośrednictwem kabla Ethernet (zalecane) lub stabilnego Wi-Fi. Komputer i drukarka muszą znajdować się w tej samej podsieci lokalnej.</li>
+        </ul>
+
+        <div id="pobieranie-aplikacji">
+          <h3>Pakiety instalacyjne aplikacji easyfiscal (do pobrania)</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Wybierz i kliknij dedykowany pakiet dla architektury swojego systemu operacyjnego, aby pobrać archiwum:
+          </p>
+
+          <div class="download-links-list">
+            <div class="download-link-row">
+              <span class="download-link-os">🪟 <strong>Windows 10 / 11 (64-bit):</strong></span>
+              <a href="https://easyfiscal-app.s3.eu-central-1.amazonaws.com/windows/easyfiscal.zip" class="download-direct-link" target="_blank" rel="noopener">
+                https://easyfiscal-app.s3.eu-central-1.amazonaws.com/windows/easyfiscal.zip
+              </a>
+            </div>
+            <div class="download-link-row">
+              <span class="download-link-os">🍏 <strong>macOS Apple Silicon (M1/M2/M3/M4):</strong></span>
+              <a href="https://easyfiscal-app.s3.eu-central-1.amazonaws.com/macos/m/easyfiscal.dmg" class="download-direct-link" target="_blank" rel="noopener">
+                https://easyfiscal-app.s3.eu-central-1.amazonaws.com/macos/m/easyfiscal.dmg
+              </a>
+            </div>
+            <div class="download-link-row">
+              <span class="download-link-os">🖥️ <strong>macOS Intel (x86_64):</strong></span>
+              <a href="https://easyfiscal-app.s3.eu-central-1.amazonaws.com/macos/x64/easyfiscal.dmg" class="download-direct-link" target="_blank" rel="noopener">
+                https://easyfiscal-app.s3.eu-central-1.amazonaws.com/macos/x64/easyfiscal.dmg
+              </a>
+            </div>
+            <div class="download-link-row">
+              <span class="download-link-os">🐧 <strong>Linux 64-bit (x86_64):</strong></span>
+              <a href="https://easyfiscal-app.s3.eu-central-1.amazonaws.com/linux/easyfiscal.zip" class="download-direct-link" target="_blank" rel="noopener">
+                https://easyfiscal-app.s3.eu-central-1.amazonaws.com/linux/easyfiscal.zip
+              </a>
+            </div>
+            <div class="download-link-row">
+              <span class="download-link-os">🍓 <strong>Linux aarch64 (Raspberry Pi / ARM64):</strong></span>
+              <a href="https://easyfiscal-app.s3.eu-central-1.amazonaws.com/linux/easyfiscal_aarch64.zip" class="download-direct-link" target="_blank" rel="noopener">
+                https://easyfiscal-app.s3.eu-central-1.amazonaws.com/linux/easyfiscal_aarch64.zip
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           ROZDZIAŁ 3: WSTĘPNA KONFIGURACJA DRUKARKI FISKALNEJ
+           ==================================================================== -->
+      <section class="doc-section" id="rozdzial-3">
+        <div class="section-header">
+          <span class="section-tag">Rozdział 3</span>
+          <h2 class="section-title">Wstępna Konfiguracja Drukarki Fiskalnej</h2>
+          <p class="section-lead">
+            Konfiguracja portów, protokołów komunikacyjnych i parametrów sieciowych TCP/IP w certyfikowanych drukarkach fiskalnych online.
+          </p>
+        </div>
+
+        <h3>Krok 1: Podłączenie do sieci lokalnej (Rekomendowane: Ethernet LAN)</h3>
+        <p>
+          Zdecydowanie rekomendujemy połączenie drukarki z siecią za pomocą kabla <strong>Ethernet (RJ-45)</strong> zamiast USB. 
+          Połączenie sieciowe eliminuje błędy wirtualnych portów szeregowych COM i pozwala na swobodną komunikację z dowolnego komputera w sieci.
+        </p>
+
+        <ol>
+          <li>Podłącz kabel sieciowy z routera/switcha do gniazda LAN w drukarce fiskalnej.</li>
+          <li>W menu drukarki przejdź do sekcji konfiguracji interfejsów (np. <i>Menu -> Konfiguracja -> Połączenia -> Interfejs PC -> TCP/IP</i>).</li>
+          <li>Ustaw statyczny adres IP (np. <code>192.168.1.150</code>) lub ustaw rezerwację adresu MAC na serwerze DHCP routera.</li>
+          <li>Wprowadź maskę podsieci (zwykle <code>255.255.255.0</code>) oraz bramę domyślną Twojego routera (np. <code>192.168.1.1</code>).</li>
+        </ol>
+
+        <h3>Krok 2: Konfiguracja protokołu i portu komunikacyjnego</h3>
+        <div class="table-responsive">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Parametr</th>
+                <th>Standard 1: Novitus (XML)</th>
+                <th>Standard 2: Posnet (Thermal)</th>
+                <th>Standard 3: Elzab (Dedykowany)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Protokół PC</strong></td>
+                <td>XML / Format ustrukturyzowany</td>
+                <td>Standardowy / Emulacja POS</td>
+                <td>Dedykowany sieciowy</td>
+              </tr>
+              <tr>
+                <td><strong>Domyślny Port TCP</strong></td>
+                <td><code>8000</code> (lub 6800)</td>
+                <td><code>6800</code> (lub 8000)</td>
+                <td><code>11115</code> (lub 6800)</td>
+              </tr>
+              <tr>
+                <td><strong>Strona Kodowa</strong></td>
+                <td>UTF-8 lub Windows-1250</td>
+                <td>Windows-1250 lub Mazovia</td>
+                <td>Windows-1250 / Mazovia</td>
+              </tr>
+              <tr>
+                <td><strong>Timeout Transmisji</strong></td>
+                <td>5000 ms</td>
+                <td>5000 ms</td>
+                <td>5000 ms</td>
+              </tr>
+              <tr>
+                <td><strong>Tryb USB (opcjonalnie)</strong></td>
+                <td>Sterownik VCP, 115200 bps</td>
+                <td>Sterownik USB POS, 115200 bps</td>
+                <td>Sterownik USB VCP, 115200 bps</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Krok 3: Wyłączenie fizycznego zadruku papieru (Tryb E-Paragonu)</h3>
+        <p>
+          Aby drukarka nie marnowała rolek papieru przy każdym e-paragonie:
+        </p>
+        <ul>
+          <li><strong>Dla Standardu 1 (Mobilna/Kompaktowa):</strong> W menu lub aplikacji konfiguracyjnej przejdź do: <i>Konfiguracja -> Opcje wydruku -> zaznacz opcję 'E-paragon włączony / Blokada wysuwu papieru'</i>.</li>
+          <li><strong>Dla Standardu 2 (Stacjonarna systemowa):</strong> W menu kasy wybierz: <i>Konfiguracja -> Konfiguracja e-dokumentów -> Wydruk fizyczny: Wyłączony</i>. Drukarka zapisze transakcję w pamięci chronionej i wyśle dane elektronicznie do CRK.</li>
+          <li><strong>Dla Standardu 3 (Stacjonarna modułowa):</strong> W menu urządzenia wybierz: <i>Parametry -> Opcje fiskalne / E-dokument -> Wydruk papierowy: Zablokowany (zapis elektroniczny)</i>.</li>
+        </ul>
+
+        <!-- ====================================================================
+             SCHEMATY WYŚWIETLACZY DRUKAREK FISKALNYCH (OFICJALNE PRZYKŁADY MENU)
+             ==================================================================== -->
+        <div class="printer-schematics-card" id="schematy-wyswietlaczy">
+          <div class="section-header" style="margin-bottom: 1.25rem;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="margin:0; font-size:1.15rem;">📟 Schematy Wyświetlaczy Drukarek: Przykłady Ustawień z Menu</h3>
+              <span class="badge-tag gold">Oficjalne Ścieżki Menu</span>
+            </div>
+            <p style="font-size:0.875rem; color:var(--text-muted); margin-top:0.35rem;">
+              Poniższe schematy przedstawiają rzeczywisty wygląd ekranów LCD/OLED oraz sekwencję przejść w menu 
+              dla trzech najpopularniejszych architektur sprzętowych w Polsce. Wybierz typ urządzenia, aby prześledzić konfigurację krok po kroku.
+            </p>
+          </div>
+
+          <!-- Zakładki wyboru typu urządzenia -->
+          <div class="printer-tabs">
+            <button class="printer-tab-btn active" data-tab="tab-printer-std1">
+              📱 Standard 1: Novitus (Mobilna / Ekran graficzny LCD)
+            </button>
+            <button class="printer-tab-btn" data-tab="tab-printer-std2">
+              🖥️ Standard 2: Posnet (Stacjonarna / Ekran OLED)
+            </button>
+            <button class="printer-tab-btn" data-tab="tab-printer-std3">
+              📟 Standard 3: Elzab (Modułowa / Ekran VFD)
+            </button>
+          </div>
+
+          <!-- ZAKŁADKA 1: STANDARD 1 (KOMPAKTOWA / MOBILNA) -->
+          <div class="printer-tab-pane active" id="tab-printer-std1">
+            <div style="margin-bottom: 1rem;">
+              <span class="badge-tag green">Marka: NOVITUS (Standard 1)</span>
+              <strong style="margin-left: 0.5rem; font-size: 0.95rem;">Mobilna / kompaktowa drukarka fiskalna z graficznym wyświetlaczem LCD (132 × 64 px)</strong>
+            </div>
+
+            <div class="printer-screens-grid">
+              <!-- Ekran 1: Gotowość -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 1</span>
+                  <span class="printer-step-title">Pulpit / Gotowość</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-lcd-matrix">
+                    <div class="screen-bar">
+                      <span>[LAN:OK]</span>
+                      <span>CRK:●</span>
+                      <span>12:45</span>
+                    </div>
+                    <div>GOTOWA DO PRACY</div>
+                    <div>KASA OTWARTA</div>
+                    <div style="color:#A7F3D0; font-weight:700;">SPRZEDAŻ:  0,00 PLN</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">MENU</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Stan spoczynkowy:</strong> Sprawdź obecność ikony <code>[LAN:OK]</code> oraz zielonej kropki <code>CRK:●</code> świadczącej o aktywnej łączności z MF.
+                </div>
+              </div>
+
+              <!-- Ekran 2: Menu Komunikacja -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 2</span>
+                  <span class="printer-step-title">Wybór Komunikacji</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-lcd-matrix">
+                    <div class="screen-bar">
+                      <span>MENU GŁÓWNE</span>
+                      <span>2/5</span>
+                    </div>
+                    <div>-- KOMUNIKACJA --</div>
+                    <div class="cursor-line">&gt; 1.Ustawienia sieci</div>
+                    <div>  2.Połączenia portów</div>
+                    <div>  3.Protokół PC</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">MENU</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Nawigacja:</strong> Wciśnij <code>[MENU]</code>, przejdź strzałkami do pozycji <i>Ustawienia -> Konfiguracja -> Komunikacja</i> i zatwierdź <code>[OK]</code>.
+                </div>
+              </div>
+
+              <!-- Ekran 3: Parametry IP -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 3</span>
+                  <span class="printer-step-title">Parametry IP (LAN)</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-lcd-matrix">
+                    <div class="screen-bar">
+                      <span>SIEĆ ETHERNET</span>
+                      <span>1/3</span>
+                    </div>
+                    <div>DHCP:          [NIE]</div>
+                    <div class="cursor-line">IP: 192.168.001.150</div>
+                    <div>Maska:255.255.255.000</div>
+                    <div>Brama:192.168.001.001</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">C</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Adresacja IP:</strong> Wyłącz DHCP, wpisz statyczny adres IPv4 (np. <code>192.168.1.150</code>) i maskę, po czym zatwierdź klawiszem <code>[OK]</code>.
+                </div>
+              </div>
+
+              <!-- Ekran 4: Port i Protokół PC -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 4</span>
+                  <span class="printer-step-title">Port i Protokół PC</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-lcd-matrix">
+                    <div class="screen-bar">
+                      <span>POŁĄCZENIA PORTÓW</span>
+                      <span>OK</span>
+                    </div>
+                    <div>Port PC:  COM5 (TCP)</div>
+                    <div class="cursor-line">Port nasłuchu:  8000</div>
+                    <div>Protokół:        XML</div>
+                    <div>Timeout:     5000 ms</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">C</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Usługa TCP:</strong> Ustaw wirtualny port PC na interfejs sieciowy TCP, wpisz port <code>8000</code> i wybierz protokół komunikacyjny <code>XML</code>.
+                </div>
+              </div>
+
+              <!-- Ekran 5: E-Paragon -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 5</span>
+                  <span class="printer-step-title">Tryb E-Paragonu</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-lcd-matrix">
+                    <div class="screen-bar">
+                      <span>TRYB WYDRUKU</span>
+                      <span>E-DOK</span>
+                    </div>
+                    <div class="cursor-line">E-paragon:  [WŁĄCZONY]</div>
+                    <div>Druk papieru: [WYŁĄCZ]</div>
+                    <div>Zapis cyfrowy:   [TAK]</div>
+                    <div>Repozytorium:  AUTO</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">MENU</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Blokada papieru:</strong> Włącz tryb e-paragonu i wyłącz fizyczny wysuw papieru. Drukarka po transakcji zwróci cyfrowy token do agenta easyfiscal.
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabela podsumowania parametrów -->
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Opcja Menu Urządzenia</th>
+                    <th>Ścieżka Przejścia</th>
+                    <th>Wymagana Wartość</th>
+                    <th>Uwagi Eksploatacyjne</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Interfejs internetowy</strong></td>
+                    <td><code>Menu -> Ustawienia -> Konfiguracja -> Komunikacja -> Internet</code></td>
+                    <td><code>Ethernet (lub WLAN)</code></td>
+                    <td>Zapewnia stabilne połączenie z serwerami CRK i siecią lokalną LAN.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Adresacja IP</strong></td>
+                    <td><code>Komunikacja -> Ustawienia sieci -> Ustawienia interfejsów</code></td>
+                    <td><code>DHCP: NIE, IP: 192.168.1.150</code></td>
+                    <td>Zaleca się stałe IP, aby agent easyfiscal nie tracił łączności po restarcie routera.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Port połączenia PC</strong></td>
+                    <td><code>Komunikacja -> Połączenia portów -> Port PC (TCP)</code></td>
+                    <td><code>Port: 8000, Protokół: XML</code></td>
+                    <td>Port nasłuchu na żądania fiskalizacji wysyłane przez aplikację agenta.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ZAKŁADKA 2: STANDARD 2 (STACJONARNA SYSTEMOWA) -->
+          <div class="printer-tab-pane" id="tab-printer-std2">
+            <div style="margin-bottom: 1rem;">
+              <span class="badge-tag blue">Marka: POSNET (Standard 2)</span>
+              <strong style="margin-left: 0.5rem; font-size: 0.95rem;">Wysokowydajna stacjonarna drukarka systemowa z wyświetlaczem OLED / LCD</strong>
+            </div>
+
+            <div class="printer-screens-grid">
+              <!-- Ekran 1: Gotowość -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 1</span>
+                  <span class="printer-step-title">Pulpit / Gotowość</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-oled-blue">
+                    <div class="screen-bar">
+                      <span>POS ONLINE</span>
+                      <span>[ETH:CONNECTED]</span>
+                    </div>
+                    <div>CRK: POŁĄCZONO (ONLINE)</div>
+                    <div>DOBA OTWARTA: TAK</div>
+                    <div class="cursor-line">0,00 PLN       GOTOWY</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">MENU</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Ekran gotowości:</strong> Wysoki kontrast OLED. Wskazuje aktywny interfejs <code>[ETH:CONNECTED]</code> oraz poprawną komunikację z CRK.
+                </div>
+              </div>
+
+              <!-- Ekran 2: Menu Konfiguracja Połączeń -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 2</span>
+                  <span class="printer-step-title">Konfiguracja Połączeń</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-oled-blue">
+                    <div class="screen-bar">
+                      <span>[MENU] KONFIGURACJA</span>
+                      <span>1/4</span>
+                    </div>
+                    <div class="cursor-line">&gt; 1.Konfig. połączeń</div>
+                    <div>  2.Parametry sieci</div>
+                    <div>  3.Usługi PC</div>
+                    <div>  4.E-dokumenty</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">MENU</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Menu:</strong> Przyciśnij klawisz <code>[MENU]</code> na klawiaturze urządzenia, wybierz <i>Konfiguracja -> Konfig. połączeń</i> i zatwierdź <code>[OK]</code>.
+                </div>
+              </div>
+
+              <!-- Ekran 3: Parametry TCP/IP -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 3</span>
+                  <span class="printer-step-title">Parametry TCP/IP</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-oled-blue">
+                    <div class="screen-bar">
+                      <span>PARAMETRY TCP/IP</span>
+                      <span>ETH</span>
+                    </div>
+                    <div>Interfejs:   Ethernet</div>
+                    <div>DHCP:        Wyłączone</div>
+                    <div class="cursor-line">IP:   192.168.001.150</div>
+                    <div>Maska: 255.255.255.000</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">C</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Adres sieciowy:</strong> Jako medium wybierz <i>Ethernet</i>, wyłącz DHCP i wprowadź dedykowany adres IP z puli Twojej sieci LAN.
+                </div>
+              </div>
+
+              <!-- Ekran 4: Usługi PC -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 4</span>
+                  <span class="printer-step-title">Usługi PC / Port</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-oled-blue">
+                    <div class="screen-bar">
+                      <span>USŁUGI PC (INTERFEJS)</span>
+                    </div>
+                    <div>Interfejs PC:   TCP/IP</div>
+                    <div class="cursor-line">Port TCP:          6800</div>
+                    <div>Protokół:     Standard</div>
+                    <div>Strona:       Win-1250</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">C</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Interfejs PC:</strong> Ustaw komunikację PC na <code>TCP/IP</code>, wpisz port <code>6800</code> i stronę kodową polskich znaków <code>Win-1250</code>. Drukarka może zrestartować moduł sieciowy.
+                </div>
+              </div>
+
+              <!-- Ekran 5: E-Dokumenty -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 5</span>
+                  <span class="printer-step-title">Opcje E-Dokumentów</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-oled-blue">
+                    <div class="screen-bar">
+                      <span>KONFIG. E-DOKUMENTÓW</span>
+                    </div>
+                    <div class="cursor-line">Postać:     E-Paragon</div>
+                    <div>Wydruk fizyczny:   NIE</div>
+                    <div>Pamięć chroniona:  TAK</div>
+                    <div>Wysyłka CRK:      AUTO</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">MENU</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Tryb E-Paragonu:</strong> W sekcji <i>E-dokumenty</i> zaznacz wydruk elektroniczny oraz wyłącz zadruk papierowy, aby oszczędzać rolki.
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabela podsumowania parametrów -->
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Opcja Menu Urządzenia</th>
+                    <th>Ścieżka Przejścia</th>
+                    <th>Wymagana Wartość</th>
+                    <th>Uwagi Eksploatacyjne</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Konfiguracja TCP/IP</strong></td>
+                    <td><code>Menu -> Konfiguracja -> Konfig. połączeń -> TCP/IP</code></td>
+                    <td><code>Ethernet, DHCP: Wyłączone, IP: 192.168.1.150</code></td>
+                    <td>Zapewnia stały adres sieciowy dla agenta easyfiscal w sieci LAN.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Usługi PC</strong></td>
+                    <td><code>Konfiguracja -> Konfig. połączeń -> Usługi PC</code></td>
+                    <td><code>Interfejs: TCP/IP, Port: 6800, Protokół: Standard</code></td>
+                    <td>Po zatwierdzeniu urządzenie zrestartuje usługę sieciową.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tryb e-dokumentów</strong></td>
+                    <td><code>Konfiguracja -> E-dokumenty -> Postać wydruku</code></td>
+                    <td><code>E-paragon, Wydruk papierowy: Wyłączony</code></td>
+                    <td>Dane transakcji zostają zapisane cyfrowo i przesłane do CRK.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ZAKŁADKA 3: STANDARD 3 (STACJONARNA MODUŁOWA) -->
+          <div class="printer-tab-pane" id="tab-printer-std3">
+            <div style="margin-bottom: 1rem;">
+              <span class="badge-tag gold">Marka: ELZAB (Standard 3)</span>
+              <strong style="margin-left: 0.5rem; font-size: 0.95rem;">Modułowa stacjonarna drukarka fiskalna z 4-liniowym wyświetlaczem VFD</strong>
+            </div>
+
+            <div class="printer-screens-grid">
+              <!-- Ekran 1: Gotowość -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 1</span>
+                  <span class="printer-step-title">Pulpit / Tryb PC</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-vfd-cyan">
+                    <div class="screen-bar">
+                      <span>* DRUKARKA FISKALNA *</span>
+                    </div>
+                    <div>TRYB: PRACA Z PC</div>
+                    <div>CRK: ONLINE     [LAN]</div>
+                    <div class="cursor-line">STATUS: GOTOWA DO PRACY</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">MENU</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Tryb pracy:</strong> Drukarka musi znajdować się w stanie <i>„Praca z PC”</i>, aby przyjmować komendy fiskalizacji z sieci LAN.
+                </div>
+              </div>
+
+              <!-- Ekran 2: Menu Ustawień -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 2</span>
+                  <span class="printer-step-title">Parametry Transmisji</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-vfd-cyan">
+                    <div class="screen-bar">
+                      <span>-- MENU USTAWIEŃ --</span>
+                    </div>
+                    <div class="cursor-line">&gt; 1.Parametry Transm.</div>
+                    <div>  2.Konfiguracja LAN</div>
+                    <div>  3.Opcje Wydruku</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">MENU</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Wejście do menu:</strong> Naciśnij przycisk <code>[MENU]</code> (lub <i>Kierownik</i>), wybierz <i>Ustawienia -> Parametry Transmisji</i> i naciśnij <code>[OK]</code>.
+                </div>
+              </div>
+
+              <!-- Ekran 3: Konfiguracja LAN -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 3</span>
+                  <span class="printer-step-title">Konfiguracja Sieci LAN</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-vfd-cyan">
+                    <div class="screen-bar">
+                      <span>-- ETHERNET / IP --</span>
+                    </div>
+                    <div>DHCP:             [NIE]</div>
+                    <div class="cursor-line">IP:  192.168.001.150</div>
+                    <div>Maska:255.255.255.000</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">C</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Konfiguracja IP:</strong> W podmenu <i>Ethernet</i> wyłącz automatyczne DHCP i wprowadź statyczny adres IP urządzenia.
+                </div>
+              </div>
+
+              <!-- Ekran 4: Komunikacja PC -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 4</span>
+                  <span class="printer-step-title">Komunikacja z PC</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-vfd-cyan">
+                    <div class="screen-bar">
+                      <span>-- KOMUNIKACJA PC --</span>
+                    </div>
+                    <div>Port wejściowy:    LAN</div>
+                    <div class="cursor-line">Port TCP:  11115 / 6800</div>
+                    <div>Timeout:       5000 ms</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">C</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Kanał danych:</strong> Przypisz port wejściowy do interfejsu sieciowego LAN z domyślnym portem nasłuchu (<code>11115</code> lub <code>6800</code>).
+                </div>
+              </div>
+
+              <!-- Ekran 5: E-Paragon -->
+              <div class="printer-device-card">
+                <div class="printer-card-header">
+                  <span class="printer-step-pill">KROK 5</span>
+                  <span class="printer-step-title">Opcje E-Paragonu</span>
+                </div>
+                <div class="printer-bezel">
+                  <div class="printer-screen screen-vfd-cyan">
+                    <div class="screen-bar">
+                      <span>-- FUNKCJE E-PARAGON --</span>
+                    </div>
+                    <div class="cursor-line">Zapis cyfrowy:    [TAK]</div>
+                    <div>Druk papierowy:   [NIE]</div>
+                    <div>Repozytorium:  AKTYWNE</div>
+                  </div>
+                  <div class="printer-hardware-buttons">
+                    <span class="hardware-key">MENU</span>
+                    <span class="hardware-key">▲</span>
+                    <span class="hardware-key">▼</span>
+                    <span class="hardware-key">OK</span>
+                  </div>
+                </div>
+                <div class="printer-card-caption">
+                  <strong>Retencja cyfrowa:</strong> Zablokuj wysuw papieru dla transakcji e-commerce; drukarka rejestruje transakcję wyłącznie w postaci cyfrowej.
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabela podsumowania parametrów -->
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Opcja Menu Urządzenia</th>
+                    <th>Ścieżka Przejścia</th>
+                    <th>Wymagana Wartość</th>
+                    <th>Uwagi Eksploatacyjne</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Parametry transmisji LAN</strong></td>
+                    <td><code>Ustawienia -> Parametry Transmisji -> Ethernet</code></td>
+                    <td><code>DHCP: Wyłączone, IP: 192.168.1.150</code></td>
+                    <td>Po zmianie adresu zrestartuj zasilanie urządzenia.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Port komunikacji z PC</strong></td>
+                    <td><code>Ustawienia -> Komunikacja z PC -> Port wejściowy</code></td>
+                    <td><code>Interfejs: LAN, Port: 11115 (lub 6800)</code></td>
+                    <td>Wprowadź ten sam numer portu w aplikacji agenta easyfiscal.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Opcje wydruku e-paragonu</strong></td>
+                    <td><code>Ustawienia -> Opcje fiskalne / E-dokument</code></td>
+                    <td><code>Zapis elektroniczny: Włączony, Druk papieru: Zablokowany</code></td>
+                    <td>Zapewnia pełną zgodność z e-paragonami bez marnowania papieru.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- OFICJALNE APLIKACJE DO KOMUNIKACJI I INSTRUKCJE PRODUCENTÓW -->
+        <div id="programy-narzedziowe">
+          <div class="section-header" style="margin-top: 2rem; margin-bottom: 1rem;">
+            <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.5rem;">
+              <h3 style="margin:0; font-size:1.2rem;">🛠️ Oficjalne Aplikacje Komunikacyjne i Instrukcje Obsługi</h3>
+              <span class="badge-tag gold">Pliki Producentów</span>
+            </div>
+            <p style="font-size:0.875rem; color:var(--text-muted); margin-top:0.35rem;">
+              Do bezpośredniej konfiguracji, diagnostyki, testów komunikacji oraz odczytu parametrów urządzeń zaleca się korzystanie z oficjalnych aplikacji dostarczanych przez producentów sprzętu:
+            </p>
+          </div>
+
+          <div class="printer-apps-grid">
+            <!-- Marka 1: Novitus (Wiking / Wiking 2) -->
+            <div class="printer-app-card">
+              <div>
+                <div class="printer-app-card-header">
+                  <div class="printer-app-title">
+                    <span>📱</span> Novitus (Standard 1)
+                  </div>
+                  <span class="badge-tag green">Wiking v1 / Wiking 2</span>
+                </div>
+                <p class="printer-app-desc">
+                  Oficjalne oprogramowanie serwisowo-narzędziowe Novitus. Program <strong>Wiking 2</strong> oraz klasyczny pakiet <strong>Wiking v1 / PL</strong> służą do konfiguracji interfejsów sieciowych LAN/Wi-Fi, testów transmisji protokołu XML oraz weryfikacji statusu fiskalnego.
+                </p>
+                <div class="printer-links-list">
+                  <a href="https://novitus.pl" class="printer-link-item" target="_blank" rel="noopener">
+                    <span class="link-icon">📥</span>
+                    <span class="link-name">Wiking 2 / Wiking v1 PL (Pobierz)</span>
+                    <span class="link-type">EXE / ZIP</span>
+                  </a>
+                  <a href="https://novitus.pl" class="printer-link-item" target="_blank" rel="noopener">
+                    <span class="link-icon">📖</span>
+                    <span class="link-name">Instrukcja obsługi i protokołu Wiking</span>
+                    <span class="link-type">PDF</span>
+                  </a>
+                  <a href="https://novitus.pl/produkty/drukarki-fiskalne" class="printer-link-item" target="_blank" rel="noopener">
+                    <span class="link-icon">🌐</span>
+                    <span class="link-name">Karty katalogowe drukarek Novitus</span>
+                    <span class="link-type">WWW</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Marka 2: Posnet (Posnet OPS) -->
+            <div class="printer-app-card">
+              <div>
+                <div class="printer-app-card-header">
+                  <div class="printer-app-title">
+                    <span>🖥️</span> Posnet (Standard 2)
+                  </div>
+                  <span class="badge-tag blue">Posnet OPS</span>
+                </div>
+                <p class="printer-app-desc">
+                  Dedykowane oprogramowanie narzędziowe <strong>Posnet OPS</strong> przeznaczone do konfiguracji, programowania i testów komunikacji urządzeń fiskalnych Posnet online. Dostępne oficjalnie na Windows, macOS oraz Linux.
+                </p>
+                <div class="printer-links-list">
+                  <a href="https://www.posnet.com.pl" class="printer-link-item" target="_blank" rel="noopener">
+                    <span class="link-icon">📥</span>
+                    <span class="link-name">Posnet OPS (Windows, macOS, Linux)</span>
+                    <span class="link-type">EXE / DMG</span>
+                  </a>
+                  <a href="https://www.posnet.com.pl" class="printer-link-item" target="_blank" rel="noopener">
+                    <span class="link-icon">🔌</span>
+                    <span class="link-name">Sterowniki USB CDC & POSNET USB EEM</span>
+                    <span class="link-type">Sterowniki</span>
+                  </a>
+                  <a href="https://www.posnet.com.pl/produkty/kategoria/drukarki-fiskalne-online" class="printer-link-item" target="_blank" rel="noopener">
+                    <span class="link-icon">📖</span>
+                    <span class="link-name">Instrukcje użytkownika drukarek Posnet</span>
+                    <span class="link-type">PDF</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Marka 3: Elzab (Eureka / Narzędzia) -->
+            <div class="printer-app-card">
+              <div>
+                <div class="printer-app-card-header">
+                  <div class="printer-app-title">
+                    <span>📟</span> Elzab (Standard 3)
+                  </div>
+                  <span class="badge-tag gold">Elzab Narzędzia</span>
+                </div>
+                <p class="printer-app-desc">
+                  Oficjalne programy serwisowe i testowe <strong>Elzab (Eureka / Stampa)</strong> oraz sterowniki połączeń sieciowych LAN/USB przeznaczone do diagnostyki parametrów transmisji i obsługi e-dokumentów.
+                </p>
+                <div class="printer-links-list">
+                  <a href="https://www.elzab.com.pl" class="printer-link-item" target="_blank" rel="noopener">
+                    <span class="link-icon">📥</span>
+                    <span class="link-name">Programy narzędziowe Elzab (Pobierz)</span>
+                    <span class="link-type">EXE / ZIP</span>
+                  </a>
+                  <a href="https://www.elzab.com.pl" class="printer-link-item" target="_blank" rel="noopener">
+                    <span class="link-icon">🔌</span>
+                    <span class="link-name">Sterowniki komunikacyjne USB / VCP</span>
+                    <span class="link-type">Sterowniki</span>
+                  </a>
+                  <a href="https://www.elzab.com.pl" class="printer-link-item" target="_blank" rel="noopener">
+                    <span class="link-icon">📖</span>
+                    <span class="link-name">Podręczniki obsługi drukarek Elzab</span>
+                    <span class="link-type">PDF</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Weryfikacja z konsoli systemowej (Terminal / PowerShell)</h3>
+        <p>Możesz także szybko zweryfikować widoczność drukarki z wiersza poleceń:</p>
+
+        <div class="code-block-wrap">
+          <div class="code-header">
+            <span class="code-lang-tag">BASH / POWERSHELL</span>
+            <button class="btn-copy">Kopiuj</button>
+          </div>
+          <pre><code># 1. Sprawdź odpowiedź urządzenia na ping sieciowy:
+ping 192.168.1.150
+
+# 2. Zweryfikuj otwarcie portu TCP (system Windows PowerShell):
+Test-NetConnection -ComputerName 192.168.1.150 -Port 6800
+
+# 3. Weryfikacja dla systemów macOS / Linux:
+nc -zv 192.168.1.150 6800</code></pre>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           ROZDZIAŁ 4: INSTALACJA I AGENT EASYFISCAL
+           ==================================================================== -->
+      <section class="doc-section" id="rozdzial-4">
+        <div class="section-header">
+          <span class="section-tag">Rozdział 4</span>
+          <h2 class="section-title">Instalacja Aplikacji i Agenta easyfiscal</h2>
+          <p class="section-lead">
+            Konfiguracja licencji, uruchomienie agenta w tle oraz aktywacja komunikacji z chmurą easyfiscal.
+          </p>
+        </div>
+
+        <h3>1. Zakup subskrypcji i logowanie do Moje Konto</h3>
+        <p>
+          Przejdź na stronę <a href="https://easyfiscal.pl/cennik/" target="_blank" rel="noopener">easyfiscal.pl/cennik/</a> 
+          i wybierz plan abonamentowy (Plan Miesięczny lub 6-Miesięczny). 
+          Pamiętaj: płacisz <strong>stałą stawkę bez żadnych dopłat za liczbę wystawianych paragonów</strong>.
+        </p>
+
+        <h3>2. Pierwsze uruchomienie aplikacji easyfiscal</h3>
+        <p>
+          Po rozpakowaniu pobranego archiwum lub zainstalowaniu pakietu, uruchom plik binarny <code>easyfiscal</code>. 
+          Aplikacja uruchomi interaktywny kreator konfiguracji (CLI wizard), który w kilku prostych krokach przygotuje agenta do pracy:
+        </p>
+
+        <ol>
+          <li><strong>Podaj token:</strong> Przy pierwszym uruchomieniu aplikacja poprosi o podanie Twojego unikalnego klucza subskrypcji easyfiscal, który otrzymałeś drogą mailową po zakupie.</li>
+          <li><strong>Wybierz źródło danych (integrator):</strong> Wybierz integrator, z którego korzystasz (<code>baselinker</code> lub <code>sellasist</code>) za pomocą strzałek i zatwierdź klawiszem Enter.</li>
+          <li><strong>Podaj token integratora:</strong>
+            <ul>
+              <li>Dla <strong>BaseLinker</strong>: Wklej token API pobrany z <i>Konto -> Moje konto -> API</i>.</li>
+              <li>Dla <strong>Sellasist</strong>: Wklej klucz API pobrany z <i>Obsługa sklepu -> Integracje -> Klucze API</i>.</li>
+            </ul>
+          </li>
+          <li><strong>Producent drukarki:</strong> Z listy wybierz producenta certyfikowanej drukarki (np. <code>NOVITUS</code> lub <code>POSNET</code>) i zatwierdź Enter.</li>
+          <li><strong>Wykrywanie adresu IP drukarki:</strong> Zdecyduj, czy adres IP ma zostać wykryty automatycznie w sieci LAN (opcja <code>auto</code>), czy wprowadzony ręcznie (opcja <code>manual</code>). W rozbudowanych sieciach firmowych zalecamy wprowadzenie stałego IP.</li>
+        </ol>
+
+        <!-- INTERAKTYWNY SYMULATOR KONSOLI EASYFISCAL -->
+        <div class="terminal-window" id="terminal-simulator">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+            </div>
+            <span class="terminal-title">easyfiscal terminal — first run wizard v1.2.1</span>
+            <span style="font-size: 0.72rem; color: #64748B;">Zgodne z nowym interfejsem</span>
+          </div>
+
+          <div class="terminal-body" id="terminalOutput">
+            <pre class="terminal-ascii">
+  ___  __ _ ___ _   _ / _(_)___  ___ __ _| |
+ / _ \/ _` / __| | | | |_| / __|/ __/ _` | |
+|  __/ (_| \__ \ |_| |  _| \__ \ (_| (_| | |
+ \___|\__,_|___/\__, |_| |_|___/\___\__,_|_|
+                |___/                       </pre>
+            <div id="terminalStepsContainer">
+              <!-- Renderowane dynamicznie przez JS -->
+            </div>
+          </div>
+
+          <div class="terminal-step-controls">
+            <span style="font-size: 0.78rem; color: #94A3B8; margin-right: 4px;">Krok konfiguratora:</span>
+            <button class="terminal-step-btn" id="termBtnStep1">1. Token licencji</button>
+            <button class="terminal-step-btn" id="termBtnStep2">2. Źródło danych</button>
+            <button class="terminal-step-btn" id="termBtnStep3">3. Token integratora</button>
+            <button class="terminal-step-btn" id="termBtnStep4">4. Producent kasy</button>
+            <button class="terminal-step-btn" id="termBtnStep5">5. Wyszukiwanie IP</button>
+            <button class="terminal-step-btn reset" id="termBtnReset">↺ Restart symulatora</button>
+          </div>
+        </div>
+
+        <h3>3. Plik konfiguracyjny (easyfiscal.cfg) i numeracja paragonów</h3>
+        <p>
+          Wszystkie parametry konfiguracyjne są automatycznie zapisywane w pliku <code>easyfiscal.cfg</code>, zlokalizowanym pod ścieżką:
+        </p>
+        <div class="code-block-wrap">
+          <div class="code-header">
+            <span class="code-lang-tag">ŚCIEŻKA PLIKU KONFIGURACYJNEGO</span>
+            <button class="btn-copy">Kopiuj</button>
+          </div>
+          <pre><code># Ścieżka w systemie Windows:
+C:\Users\nazwa_użytkownika\AppData\Roaming\easyfiscal\easyfiscal.cfg
+
+# Ścieżka w systemie macOS:
+~/Library/Application Support/easyfiscal/easyfiscal.cfg
+
+# Ścieżka w systemie Linux:
+~/.config/easyfiscal/easyfiscal.cfg</code></pre>
+        </div>
+
+        <h4>Przełączanie numeru wydruku na numer fiskalny (upload_number)</h4>
+        <p>
+          Domyślnie w systemie integratora umieszczany jest <strong>kolejny numer wydruku paragonu</strong>. 
+          Jeżeli chcesz, aby w systemie BaseLinker był rejestrowany <strong>oficjalny numer fiskalny</strong> nadany przez moduł fiskalny drukarki (umożliwiający wyszukiwanie zamówień po numerze paragonu fiskalnego), dodaj w sekcji <code>[integration]</code> parametr <code>upload_number = fiscal_number</code>:
+        </p>
+
+        <div class="code-block-wrap">
+          <div class="code-header">
+            <span class="code-lang-tag">easyfiscal.cfg</span>
+            <button class="btn-copy">Kopiuj</button>
+          </div>
+          <pre><code>[integration]
+source = baselinker
+token = WASZ_TOKEN_BASELINKER
+upload_number = fiscal_number</code></pre>
+        </div>
+
+        <div class="callout warning">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body">
+            <div class="callout-title">Ważne ostrzeżenie: Numeracja globalna vs dzienna</div>
+            Numer fiskalny (<code>upload_number = fiscal_number</code>) może być używany <strong>TYLKO I WYŁĄCZNIE</strong> w przypadku, gdy numeracja w drukarce fiskalnej jest skonfigurowana jako <strong>globalna</strong> (niezerowana każdego dnia). Aby to potwierdzić, skontaktuj się ze swoim serwisantem urządzeń fiskalnych. W przypadku wyboru numeracji fiskalnej przy numeracji dziennej, integrator może odrzucić załadowanie zduplikowanego numeru paragonu z nowego dnia.
+          </div>
+        </div>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <div class="callout-title">Zalecenie: Autostart systemu</div>
+            Włącz opcję <strong>"Uruchamiaj z systemem operacyjnym"</strong>. Dzięki temu po restarcie stacji roboczej (np. po aktualizacji Windows) 
+            aplikacja natychmiast podejmie kolejkowanie zamówień bez interwencji człowieka.
+          </div>
+        </div>
+
+        <!-- MIEJSCE NA ZRZUT EKRANU 3: APLIKACJA AGENT - PANEL INTEGRACJI & VAT -->
+        <div class="screenshot-slot">
+          <div class="screenshot-slot-header">
+            <div class="screenshot-slot-title">
+              <span>🔄</span>
+              <span>Panel Integracji OMS i Matryca Stawek VAT w Aplikacji</span>
+            </div>
+            <span class="screenshot-slot-badge">Podgląd UI: Aplikacja Agent</span>
+          </div>
+          <div class="screenshot-slot-mockup">
+            <div class="mockup-window-bar">
+              <div class="mockup-window-dots">
+                <span class="mockup-window-dot red"></span>
+                <span class="mockup-window-dot yellow"></span>
+                <span class="mockup-window-dot green"></span>
+              </div>
+              <span class="mockup-window-title">easyfiscal Agent v1.2.1 — Konfiguracja Integracji &amp; Podatków</span>
+              <span class="mockup-status-tag active">● Połączono z OMS</span>
+            </div>
+
+            <div class="mockup-grid-2" style="margin-bottom: 1rem;">
+              <div class="mockup-field-box">
+                <div class="mockup-field-label">Aktywne Źródło Zamówień (Integrator)</div>
+                <div class="mockup-field-val" style="display:flex; align-items:center; gap:8px;">
+                  <span style="font-weight:700;">Base.com (BaseLinker)</span>
+                  <span class="badge-tag green" style="font-size:0.7rem;">Aktywne</span>
+                </div>
+              </div>
+              <div class="mockup-field-box">
+                <div class="mockup-field-label">Token API Integratora</div>
+                <div class="mockup-field-val" style="color:var(--text-muted);">40291-88492-X9LKA****************</div>
+              </div>
+            </div>
+
+            <div style="background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--radius-sm); padding:0.75rem; overflow-x:auto;">
+              <div style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase; margin-bottom:0.5rem;">
+                Matryca Stawek Podatkowych (Mapowanie VAT &rarr; Litera w Drukarce)
+              </div>
+              <table style="width:100%; font-size:0.8rem; border-collapse:collapse;">
+                <thead>
+                  <tr style="border-bottom:1px solid var(--border-subtle); text-align:left; color:var(--text-muted);">
+                    <th style="padding:4px 8px;">Stawka w OMS</th>
+                    <th style="padding:4px 8px;">Litera Drukarki</th>
+                    <th style="padding:4px 8px;">Opis Kasy</th>
+                    <th style="padding:4px 8px;">Status Mapowania</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom:1px solid var(--border-subtle);">
+                    <td style="padding:6px 8px; font-weight:700;">23%</td>
+                    <td style="padding:6px 8px;"><span class="badge-tag gold">Litera A</span></td>
+                    <td style="padding:6px 8px; color:var(--text-muted);">Stawka podstawowa</td>
+                    <td style="padding:6px 8px; color:#10B981; font-weight:600;">✓ Zweryfikowane</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);">
+                    <td style="padding:6px 8px; font-weight:700;">8%</td>
+                    <td style="padding:6px 8px;"><span class="badge-tag gold">Litera B</span></td>
+                    <td style="padding:6px 8px; color:var(--text-muted);">Towary preferencyjne</td>
+                    <td style="padding:6px 8px; color:#10B981; font-weight:600;">✓ Zweryfikowane</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);">
+                    <td style="padding:6px 8px; font-weight:700;">5%</td>
+                    <td style="padding:6px 8px;"><span class="badge-tag gold">Litera C</span></td>
+                    <td style="padding:6px 8px; color:var(--text-muted);">Żywność / Książki</td>
+                    <td style="padding:6px 8px; color:#10B981; font-weight:600;">✓ Zweryfikowane</td>
+                  </tr>
+                  <tr style="border-bottom:1px solid var(--border-subtle);">
+                    <td style="padding:6px 8px; font-weight:700;">0%</td>
+                    <td style="padding:6px 8px;"><span class="badge-tag gold">Litera D</span></td>
+                    <td style="padding:6px 8px; color:var(--text-muted);">Eksport towarów</td>
+                    <td style="padding:6px 8px; color:#10B981; font-weight:600;">✓ Zweryfikowane</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:6px 8px; font-weight:700;">Zwolniony (ZW)</td>
+                    <td style="padding:6px 8px;"><span class="badge-tag gold">Litera E</span></td>
+                    <td style="padding:6px 8px; color:var(--text-muted);">Ustawowo zwolnione</td>
+                    <td style="padding:6px 8px; color:#10B981; font-weight:600;">✓ Zweryfikowane</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="screenshot-slot-footer">
+            <span>ℹ️</span>
+            <span><strong>Ilustracja w dokumentacji:</strong> Prezentuje mapowanie podatkowe gwarantujące bezbłędne przypisanie stawek VAT przy fiskalizacji.</span>
+          </div>
+        </div>
+
+        <!-- MIEJSCE NA ZRZUT EKRANU 4: APLIKACJA AGENT - LOGI I DZIENNIK ZDARZEŃ -->
+        <div class="screenshot-slot">
+          <div class="screenshot-slot-header">
+            <div class="screenshot-slot-title">
+              <span>📜</span>
+              <span>Dziennik Operacji i Logi Transakcyjne w Czasie Rzeczywistym</span>
+            </div>
+            <span class="screenshot-slot-badge">Podgląd UI: Konsola Agenta</span>
+          </div>
+          <div class="screenshot-slot-mockup">
+            <div class="mockup-window-bar">
+              <div class="mockup-window-dots">
+                <span class="mockup-window-dot red"></span>
+                <span class="mockup-window-dot yellow"></span>
+                <span class="mockup-window-dot green"></span>
+              </div>
+              <span class="mockup-window-title">easyfiscal Agent Console — Live Transaction Stream</span>
+              <span class="mockup-status-tag active">● Live CRK</span>
+            </div>
+
+            <div style="background:#0F172A; border-radius:var(--radius-sm); padding:0.85rem; font-family:var(--font-mono); font-size:0.78rem; line-height:1.6; color:#F8FAFC;">
+              <div><span style="color:#64748B;">[14:22:01]</span> <span style="color:#38BDF8;">[INFO]</span> Pobrano zamówienie <strong style="color:#FDE047;">#104928</strong> z BaseLinker (Klient: Jan Kowalski)</div>
+              <div><span style="color:#64748B;">[14:22:02]</span> <span style="color:#38BDF8;">[DATA]</span> 2 pozycje: Zestaw akcesoriów (129.00 PLN, VAT 23% &rarr; A), Dostawa (14.99 PLN, VAT 23% &rarr; A)</div>
+              <div><span style="color:#64748B;">[14:22:03]</span> <span style="color:#FBBF24;">[PRINTER]</span> Wysyłanie polecenia fiskalizacji do drukarki LAN 192.168.1.150:8000...</div>
+              <div><span style="color:#64748B;">[14:22:04]</span> <span style="color:#34D399;">[SUCCESS]</span> Paragon zarejestrowany. Nr unikatowy: <strong style="color:#A7F3D0;">CKB19028472</strong>, Suma: 143.99 PLN</div>
+              <div><span style="color:#64748B;">[14:22:05]</span> <span style="color:#34D399;">[CRK]</span> Potwierdzenie rejestracji w Centralnym Repozytorium Kas (HTTP 200 OK)</div>
+              <div><span style="color:#64748B;">[14:22:06]</span> <span style="color:#A78BFA;">[OMS]</span> Zapisano link w BaseLinker [eParagon_link]: <span style="color:#67E8F9;">https://easyfiscal.pl/e/ckb19028472</span></div>
+            </div>
+          </div>
+          <div class="screenshot-slot-footer">
+            <span>ℹ️</span>
+            <span><strong>Ilustracja w dokumentacji:</strong> Pomaga użytkownikom w bieżącym monitorowaniu kolejki wydruków oraz diagnostyce ewentualnych błędów.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           ROZDZIAŁ 5: INTEGRACJA Z BASE (BASELINKER)
+           ==================================================================== -->
+      <section class="doc-section" id="rozdzial-5">
+        <div class="section-header">
+          <span class="section-tag">Rozdział 5</span>
+          <h2 class="section-title">Integracja z Systemem Base (Base.com / BaseLinker)</h2>
+          <p class="section-lead">
+            Połączenie platformy BaseLinker z easyfiscal za pomocą klucza API, automatyczne wyzwalanie fiskalizacji i odsyłanie linku do klienta.
+          </p>
+        </div>
+
+        <h3>Krok 1: Dodanie i aktywacja integracji „Paragony” w BaseLinker</h3>
+        <p>
+          Aby aplikacja easyfiscal mogła komunikować się z BaseLinkerem i obsługiwać zamówienia:
+        </p>
+        <ol>
+          <li>Zaloguj się do panelu BaseLinkera.</li>
+          <li>W menu bocznym wybierz: <strong>Integracje</strong> -> <strong>Dodaj integrację</strong>.</li>
+          <li>Wyszukaj wtyczkę <strong>Paragony</strong>, wybierz ją i aktywuj na swoim koncie.</li>
+        </ol>
+
+        <h3>Krok 2: Pobranie tokenu API w BaseLinkerze</h3>
+        <ol>
+          <li>W prawym górnym rogu kliknij w nazwę konta, a następnie wybierz: <strong>Moje konto</strong>.</li>
+          <li>Przejdź do zakładki <strong>API</strong>.</li>
+          <li>Skopiuj klucz API do schowka za pomocą dedykowanego przycisku kopiowania (będzie potrzebny w kreatorze aplikacji easyfiscal).</li>
+        </ol>
+
+        <h3>Krok 3: Dodanie pola dodatkowego „eParagon_link”</h3>
+        <p>
+          Aby aplikacja mogła odsyłać link do gotowego e-paragonu z hubu easyfiscal (z którego klient może pobrać e-paragon w formacie JSON oraz przejrzystą wizualizację):
+        </p>
+        <ol>
+          <li>W menu głównym BaseLinkera przejdź do: <strong>Zamówienia</strong> -> <strong>Ustawienia</strong>.</li>
+          <li>Wybierz zakładkę <strong>Pola dodatkowe</strong> i kliknij przycisk <strong>Dodaj pole dodatkowe</strong>.</li>
+          <li>W polu <strong>Nazwa</strong> wpisz dokładnie: <code>eParagon_link</code>.</li>
+          <li>W polu <strong>Typ</strong> wybierz: <code>Pole tekstowe</code>.</li>
+          <li>W sekcji <strong>Zakres</strong> zaznacz <code>Zamówienia</code> i kliknij <strong>Zapisz</strong>.</li>
+        </ol>
+
+        <h3>Krok 4: Wystawianie e-paragonu dla zamówienia</h3>
+        <p>
+          W BaseLinkerze e-paragony mogą być generowane ręcznie lub w pełni automatycznie:
+        </p>
+        <ul>
+          <li><strong>Wystawienie ręczne:</strong> Wejdź w szczegóły danego zamówienia i w sekcji dokumentów kliknij przycisk <strong>„Wystaw paragon”</strong>. Aplikacja easyfiscal w ciągu maksymalnie 60 sekund pobierze dane zamówienia, przekaże je do podłączonej drukarki fiskalnej, a po zafiskalizowaniu zwróci link w polu dodatkowym <code>eParagon_link</code>.</li>
+          <li><strong>Wystawienie automatyczne:</strong> Skonfiguruj regułę w sekcji <i>Automatyczne akcje</i> (np. po przejściu do statusu „Spakowane”).</li>
+        </ul>
+
+        <h3>Krok 3: Tabela Mapowania Stawek VAT</h3>
+        <p>
+          Upewnij się, że stawki VAT z zamówień w BaseLinkerze odpowiadają literom zarejestrowanym w Twojej kasie:
+        </p>
+
+        <div class="table-responsive">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Stawka Podatkowa</th>
+                <th>Litera Fiskalna</th>
+                <th>Zakres Towarowy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>23%</strong></td>
+                <td><span class="badge-tag gold">Litera A</span></td>
+                <td>Stawka podstawowa (większość asortymentu e-commerce)</td>
+              </tr>
+              <tr>
+                <td><strong>8%</strong></td>
+                <td><span class="badge-tag blue">Litera B</span></td>
+                <td>Towary o obniżonej stawce, książki, wybrane artykuły</td>
+              </tr>
+              <tr>
+                <td><strong>5%</strong></td>
+                <td><span class="badge-tag blue">Litera C</span></td>
+                <td>Podstawowa żywność, wybrane wyroby medyczne</td>
+              </tr>
+              <tr>
+                <td><strong>0%</strong></td>
+                <td><span class="badge-tag blue">Litera D</span></td>
+                <td>Stawka 0% (eksport towarów, dostawy wewnątrzwspólnotowe)</td>
+              </tr>
+              <tr>
+                <td><strong>Zwolniony (ZW)</strong></td>
+                <td><span class="badge-tag blue">Litera E</span></td>
+                <td>Usługi i towary ustawowo zwolnione z opodatkowania</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- MIEJSCE NA ZRZUT EKRANU 6: BASELINKER - AUTOMATYCZNA AKCJA -->
+        <div class="screenshot-slot">
+          <div class="screenshot-slot-header">
+            <div class="screenshot-slot-title">
+              <span>⚡</span>
+              <span>Panel Base.com: Konfiguracja Reguły Akcji Automatycznej</span>
+            </div>
+            <span class="screenshot-slot-badge">Podgląd UI: Panel Base.com</span>
+          </div>
+          <div class="screenshot-slot-mockup">
+            <div class="mockup-window-bar">
+              <div class="mockup-window-dots">
+                <span class="mockup-window-dot red"></span>
+                <span class="mockup-window-dot yellow"></span>
+                <span class="mockup-window-dot green"></span>
+              </div>
+              <span class="mockup-window-title">Base.com — Automatyczne Akcje &gt; Reguła Fiskalizacji E-Paragonów</span>
+              <span class="mockup-status-tag active">● Reguła Aktywna</span>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:0.75rem;">
+              <div class="mockup-field-box">
+                <div class="mockup-field-label">1. Zdarzenie Wyzwalające (Kiedy uruchomić regułę)</div>
+                <div class="mockup-field-val" style="display:flex; align-items:center; gap:8px;">
+                  <span>⚡ <strong>Zmiana statusu zamówienia</strong> &rarr; <span class="badge-tag gold">Spakowane (Gotowe do wysyłki)</span></span>
+                </div>
+              </div>
+
+              <div class="mockup-field-box">
+                <div class="mockup-field-label">2. Warunki Wykonania (Filtrowanie B2C)</div>
+                <div class="mockup-field-val" style="display:flex; flex-direction:column; gap:4px;">
+                  <div>• <strong>Chce fakturę:</strong> <span style="color:#10B981; font-weight:700;">NIE</span> (tylko sprzedaż konsumencka B2C)</div>
+                  <div>• <strong>Płatność:</strong> <span style="color:#0284C7; font-weight:700;">Opłacone lub Pobranie (COD)</span></div>
+                </div>
+              </div>
+
+              <div class="mockup-field-box">
+                <div class="mockup-field-label">3. Wykonaj Akcje (Automatyzacja)</div>
+                <div class="mockup-field-val" style="display:flex; flex-direction:column; gap:6px;">
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <span style="color:#10B981; font-weight:700;">➔ Akcja 1:</span>
+                    <span>Wystaw dokument: <strong>Paragon fiskalny (wtyczka easyfiscal)</strong></span>
+                  </div>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <span style="color:#0284C7; font-weight:700;">➔ Akcja 2:</span>
+                    <span>Wyślij e-mail do klienta z szablonem: <i>„Twój e-paragon fiskalny”</i> (tag <code>[eParagon_link]</code>)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="screenshot-slot-footer">
+            <span>ℹ️</span>
+            <span><strong>Ilustracja w dokumentacji:</strong> Pokazuje kompletną konfigurację automatycznej fiskalizacji bez udziału człowieka.</span>
+          </div>
+        </div>
+
+        <!-- INTERAKTYWNY SYMULATOR REGUŁ BASELINKER -->
+        <div class="tool-card" id="symulator-base">
+          <div class="tool-header">
+            <div class="tool-title">
+              <span>⚙️</span>
+              <strong>Generator i Podgląd Automatycznej Akcji BaseLinker</strong>
+            </div>
+            <span class="badge-tag gold">Kreator Reguły</span>
+          </div>
+
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Wybierz zdarzenie w procesie zamówienia, aby zobaczyć optymalną konfigurację automatycznej akcji w panelu Base:
+          </p>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Zdarzenie Wyzwalające</label>
+              <select class="form-control" id="blEventSelect">
+                <option value="Zmiana statusu zamówienia">Zmiana statusu zamówienia</option>
+                <option value="Pobrano formularz dostawy">Pobrano formularz dostawy</option>
+                <option value="Opłacono zamówienie">Opłacono zamówienie</option>
+                <option value="Zeskanowano kod kreskowy paczki">Zeskanowano kod kreskowy paczki</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Status Docelowy</label>
+              <select class="form-control" id="blStatusSelect">
+                <option value="Spakowane (Gotowe do wysyłki)">Spakowane (Gotowe do wysyłki)</option>
+                <option value="W trakcie pakowania">W trakcie pakowania</option>
+                <option value="Wysłane do klienta">Wysłane do klienta</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="justify-content: center;">
+              <label class="form-label" style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                <input type="checkbox" id="blInvoiceCondition" checked style="width:16px; height:16px; accent-color: var(--primary);">
+                <span>Filtruj tylko B2C (Chce fakturę = NIE)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="tool-result-box" id="blRulePreview">
+            <span style="color: var(--primary);">Wybierz parametry powyżej, aby wygenerować podgląd akcji...</span>
+          </div>
+        </div>
+
+        <h3>Krok 5: Szablon wiadomości E-mail z polem [eParagon_link]</h3>
+        <p>
+          Aby klient mógł natychmiast po wystawieniu paragonu pobrać dokument w formacie JSON lub obejrzeć jego czytelną wizualizację, stwórz dedykowany szablon e-mail w BaseLinkerze:
+        </p>
+        <ol>
+          <li>Przejdź do: <strong>Zamówienia</strong> -> <strong>Szablony e-mail/SMS</strong> -> <strong>Nowy szablon e-mail</strong>.</li>
+          <li>Uzupełnij nazwę szablonu, temat i treść według własnego uznania.</li>
+          <li>W treści wiadomości wklej dynamiczny tag <code>[eParagon_link]</code>:</li>
+        </ol>
+
+        <div class="code-block-wrap">
+          <div class="code-header">
+            <span class="code-lang-tag">SZABLON E-MAIL (BASELINKER)</span>
+            <button class="btn-copy">Kopiuj Szablon</button>
+          </div>
+          <pre><code>Witaj [klient_imie_nazwisko],
+
+Dziękujemy za zakupy w naszym sklepie! Twoje zamówienie #[zamowienie_id] zostało pomyślnie skompletowane.
+
+Twój oficjalny elektroniczny paragon fiskalny (e-paragon) jest gotowy do pobrania:
+👉 [eParagon_link]
+
+W powyższym linku możesz pobrać dokument w ustrukturyzowanym formacie JSON oraz wyświetlić jego czytelną wizualizację zgodną z przepisami Ministerstwa Finansów.
+
+Pozdrawiamy serdecznie,
+Zespół Obsługi Klienta</code></pre>
+        </div>
+
+        <h3>Krok 6: Automatyczna akcja wysyłki e-paragonu po jego wygenerowaniu</h3>
+        <p>
+          Aby wiadomość e-mail z e-paragonem została wysłana do klienta natychmiast po odebraniu linku z drukarki:
+        </p>
+        <ol>
+          <li>W menu przejdź do: <strong>Zamówienia</strong> -> <strong>Automatyczne akcje</strong> -> <strong>Dodaj automatyczną akcję</strong>.</li>
+          <li>W sekcji <strong>Zdarzenie</strong> wybierz: <code>Edytowano dane</code>.</li>
+          <li>Dodaj warunek: z listy wybierz <code>Pole dodatkowe</code>, wskaż <code>eParagon_link</code> i ustaw warunek na <code>Wartość niepusta</code> (akcja po dodaniu linku).</li>
+          <li>W polu <strong>Szablon</strong> wybierz nazwę utworzonego w Kroku 5 szablonu wiadomości.</li>
+          <li>Kliknij <strong>Zapisz</strong>. Automatyczna akcja zacznie działać przy każdym kolejnym zamówieniu.</li>
+        </ol>
+      </section>
+
+      <!-- ====================================================================
+           ROZDZIAŁ 6: INTEGRACJA Z SELLASIST ORAZ EASYSALES
+           ==================================================================== -->
+      <section class="doc-section" id="rozdzial-6">
+        <div class="section-header">
+          <span class="section-tag">Rozdział 6</span>
+          <h2 class="section-title">Integracja z Systemami OMS: Sellasist i easySales</h2>
+          <p class="section-lead">
+            Konfiguracja automatycznego obiegu e-paragonów w popularnych platformach sklepowych oraz systemach wielokanałowych.
+          </p>
+        </div>
+
+        <h3>Część A: Przygotowanie i integracja systemu Sellasist</h3>
+        <p>
+          Platforma <strong>Sellasist</strong> jest bezpośrednio zintegrowana z easyfiscal jako natywne źródło danych. 
+          Poniżej znajduje się kompletna procedura podłączenia sklepu i kolejkowania e-paragonów:
+        </p>
+
+        <h4>Krok 1: Pobranie klucza API w Sellasist</h4>
+        <ol>
+          <li>Zaloguj się do panelu administracyjnego Sellasist.</li>
+          <li>W lewym menu przejdź do: <strong>Obsługa sklepu</strong> -> <strong>Integracje</strong> -> <strong>Klucze API</strong>.</li>
+          <li>Kliknij przycisk <strong>„Dodaj klucz”</strong>.</li>
+          <li>W polu <strong>Wyświetlana nazwa</strong> wpisz np. <code>API easyfiscal</code>.</li>
+          <li>Kliknij przycisk <strong>„Wygeneruj nowy”</strong> obok pola Klucz API.</li>
+          <li>Wybierz powiązane konto e-mail, powiązaną firmę oraz kolor etykiety, a następnie kliknij <strong>„Zapisz”</strong>.</li>
+          <li>Skopiowany klucz API wklej do kreatora CLI aplikacji easyfiscal przy pytaniu o token Sellasist.</li>
+        </ol>
+
+        <!-- INTERAKTYWNY GENERATOR KLUCZA API DLA SELLASIST -->
+        <div class="tool-card" id="symulator-sellasist">
+          <div class="tool-header">
+            <div class="tool-title">
+              <span>🔑</span>
+              <strong>Interaktywny Podgląd Konfiguracji Klucza API Sellasist</strong>
+            </div>
+            <span class="badge-tag gold">Kreator Sellasist</span>
+          </div>
+
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Wpisz nazwę aplikacji, aby zasymulować generowanie klucza API zgodnie z formularzem Sellasist:
+          </p>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Wyświetlana nazwa klucza</label>
+              <input type="text" class="form-control" id="sellasistKeyName" value="API easyfiscal" placeholder="np. API easyfiscal">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Konto powiązane</label>
+              <input type="text" class="form-control" id="sellasistAccount" value="Konto główne (Administrator)" readonly style="opacity:0.8;">
+            </div>
+          </div>
+
+          <div style="margin-bottom: 1rem;">
+            <button class="btn btn-primary" id="btnGenSellasistKey">⚡ Wygeneruj testowy klucz API Sellasist</button>
+          </div>
+
+          <div class="tool-result-box" id="sellasistKeyResult">
+            <span style="color: var(--text-muted);">Kliknij przycisk powyżej, aby wygenerować przykładowy token API do wklejenia w terminalu easyfiscal...</span>
+          </div>
+        </div>
+
+        <h4>Krok 2: Dodanie pola dodatkowego „eParagon_link” w Sellasist</h4>
+        <p>
+          Do zapisywania adresu e-paragonu z hubu fiskalnego easyfiscal wymagane jest pole tekstowe:
+        </p>
+        <ol>
+          <li>W panelu Sellasist przejdź do: <strong>Zamówienia</strong> -> <strong>Dodatkowe pola</strong>.</li>
+          <li>Kliknij zielony przycisk <strong>„Dodaj pole”</strong>.</li>
+          <li>W formularzu uzupełnij:
+            <ul>
+              <li><strong>Nazwa:</strong> <code>eParagon_link</code></li>
+              <li><strong>Rodzaj pola:</strong> <code>Pole tekstowe</code></li>
+              <li><strong>Zawartość pola:</strong> <code>dowolna</code></li>
+            </ul>
+          </li>
+          <li>Kliknij niebieski przycisk <strong>„Zapisz”</strong>.</li>
+        </ol>
+
+        <h4>Krok 3: Wystawianie e-paragonów z listy zamówień Sellasist</h4>
+        <p>
+          W panelu Sellasist wystawianie e-paragonów odbywa się masowo lub pojedynczo:
+        </p>
+        <ol>
+          <li>Przejdź do: <strong>Sprzedaż</strong> -> <strong>Zamówienia</strong>.</li>
+          <li>Zaznacz checkboxy przy zamówieniach, dla których chcesz wystawić dokumenty fiskalne.</li>
+          <li>Z górnej belki akcji masowych, z listy rozwijalnej <i>Wybierz / Generuj dokumenty</i> wybierz opcję: <strong>„Wystaw paragony”</strong> i zatwierdź przyciskiem <strong>„Wykonaj”</strong>.</li>
+          <li>Aplikacja easyfiscal w tle pobierze zamówienia, zafiskalizuje je na drukarce i w ciągu kilkudziesięciu sekund uzupełni link w polu dodatkowym <code>eParagon_link</code>.</li>
+        </ol>
+
+        <hr style="border:0; border-top:1px dashed var(--border-color, #334155); margin: 2rem 0;">
+
+        <h3>Część B: Integracja z platformą easySales (Akcje automatyczne i metadane)</h3>
+        <p>
+          Integracja <strong>easyfiscal</strong> z platformą <strong>easySales</strong> opiera się na inteligentnych metadanych zamówienia (Order Meta Data) oraz regułach automatyzacji. Pozwala to na pełną bezobsługowość fiskalizacji zamówień ze wszystkich kanałów marketplace (Allegro, eMAG, Amazon, Kaufland itp.) i natychmiastowe dostarczenie linku do e-paragonu kupującemu.
+        </p>
+
+        <h4>Krok 1: Utworzenie akcji automatycznej w panelu easySales</h4>
+        <p>
+          W panelu easySales przejdź do modułu <strong>Akcje automatyczne</strong> i utwórz nową regułę:
+        </p>
+        <ol>
+          <li><strong>Nazwa akcji:</strong> Wpisz nazwę reguły, np. <code>Tworzenie paragonu</code>, a <strong>Status akcji</strong> ustaw jako <code>Aktywne</code>.</li>
+          <li><strong>Wyzwalacz akcji:</strong> Wybierz zdarzenie inicjujące, np.:
+            <ul>
+              <li><code>Zmiana niestandardowego statusu zamówienia</code> (np. przejście zamówienia do realizacji/pakowania), lub</li>
+              <li><code>Dodanie tagu</code> &rarr; tag <code>PARAGON</code>.</li>
+            </ul>
+          </li>
+          <li><strong>Warunki reguły:</strong> Kliknij <strong>„Dodaj warunek”</strong> (np. o nazwie <i>Status wysłane</i> lub <i>Warunki B2C PARAGON</i>) i zdefiniuj reguły filtrujące:
+            <ul>
+              <li><code>Kraj wysyłkowy zamówienia</code> &rarr; <strong>Jest równy</strong> &rarr; <code>Poland</code> (transakcje krajowe podlegające polskim przepisom fiskalnym).</li>
+              <li><code>Kod firmy klienta</code> &rarr; <strong>Jest pusty</strong> (kluczowy filtr B2C: brak numeru NIP/kodu firmy oznacza sprzedaż konsumencką).</li>
+              <li><code>Niestandardowy status zamówienia</code> &rarr; <strong>Jest równy</strong> &rarr; <code>Dostawa | Wysłane</code> (bądź warunek: <i>Tag zamówienia zawiera</i> <code>PARAGON</code>).</li>
+            </ul>
+          </li>
+          <li><strong>Działanie (Akcja):</strong> Kliknij <strong>„Dodaj działanie”</strong>:
+            <ul>
+              <li><strong>Wybierz akcję:</strong> <code>Dodaj metadane</code>.</li>
+              <li><strong>Klucz metadanych:</strong> <code>FISCAL</code>.</li>
+              <li><strong>Wartość metadanych:</strong> <code>0</code> (znacznik dla easyfiscal oznaczający zlecenie gotowe do fiskalizacji).</li>
+              <li>Pozostaw opcję <i>Użyj wartości dynamicznej</i> odznaczoną i kliknij <strong>„Zapisz”</strong>.</li>
+            </ul>
+          </li>
+          <li>Zapisz całą regułę przyciskiem <strong>„Zapisz i aktywuj”</strong>.</li>
+        </ol>
+
+        <!-- ZRZUTY EKRANU: EASYSALES - AKCJA AUTOMATYCZNA I METADANE -->
+        <div class="screenshot-slot">
+          <div class="screenshot-slot-header">
+            <div class="screenshot-slot-title">
+              <span>⚡</span>
+              <span>easySales: Konfiguracja akcji automatycznej „Tworzenie paragonu” (FISCAL = 0)</span>
+            </div>
+            <span class="screenshot-slot-badge">easySales Automatyzacja</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:1.25rem;">
+            <!-- Widok drzewa akcji -->
+            <div class="screenshot-img-card" style="background:var(--bg-main); border:1px solid var(--border-subtle); border-radius:var(--radius-md); overflow:hidden;">
+              <div style="padding:0.6rem 1rem; background:var(--bg-surface); border-bottom:1px solid var(--border-subtle); font-size:0.8rem; font-weight:700; color:var(--text-main); display:flex; justify-content:space-between; align-items:center;">
+                <span>Schemat przepływu automatyzacji: Wyzwalacz &rarr; Warunek (Status wysłane / Tag PARAGON) &rarr; Dodanie metadanych FISCAL = 0</span>
+                <span class="badge-tag green" style="font-size:0.7rem;">Aktywne</span>
+              </div>
+              <div style="padding:0.75rem; text-align:center;">
+                <img src="assets/easysales/easysales_action_tree.png" alt="Drzewo akcji automatycznej easySales FISCAL 0" style="max-width:100%; height:auto; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.06); display:inline-block;">
+              </div>
+            </div>
+
+            <!-- Siatka 2 kolumny: Edycja warunków i Edycja akcji metadanych -->
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:1rem;">
+              <div class="screenshot-img-card" style="background:var(--bg-main); border:1px solid var(--border-subtle); border-radius:var(--radius-md); overflow:hidden;">
+                <div style="padding:0.6rem 1rem; background:var(--bg-surface); border-bottom:1px solid var(--border-subtle); font-size:0.8rem; font-weight:700; color:var(--text-main);">
+                  Warunki B2C: Kraj = Poland + Kod firmy pusty + Status / Tag PARAGON
+                </div>
+                <div style="padding:0.75rem; text-align:center;">
+                  <img src="assets/easysales/easysales_condition_modal.png" alt="Warunki zamówienia easySales B2C" style="max-width:100%; height:auto; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.06); display:inline-block;">
+                </div>
+              </div>
+
+              <div class="screenshot-img-card" style="background:var(--bg-main); border:1px solid var(--border-subtle); border-radius:var(--radius-md); overflow:hidden;">
+                <div style="padding:0.6rem 1rem; background:var(--bg-surface); border-bottom:1px solid var(--border-subtle); font-size:0.8rem; font-weight:700; color:var(--text-main);">
+                  Działanie: Dodaj metadane (Klucz: FISCAL, Wartość: 0)
+                </div>
+                <div style="padding:0.75rem; text-align:center;">
+                  <img src="assets/easysales/easysales_metadata_action.png" alt="Dodanie metadanych FISCAL 0 w easySales" style="max-width:100%; height:auto; border-radius:6px; box-shadow:0 2px 8px rgba(0,0,0,0.06); display:inline-block;">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="screenshot-slot-footer" style="margin-top:1rem;">
+            <span>ℹ️</span>
+            <span><strong>Zasada działania:</strong> Akcja automatyczna easySales przypisuje metadaną <code>FISCAL = 0</code> do każdego zamówienia konsumenckiego spełniającego kryteria wysyłki lub oznaczonego tagiem <code>PARAGON</code>.</span>
+          </div>
+        </div>
+
+        <h4>Krok 2: Weryfikacja ustawień i próbna fiskalizacja zamówienia</h4>
+        <p>
+          Po skonfigurowaniu akcji automatycznej przetestuj działanie reguły na przykładowym zamówieniu w easySales:
+        </p>
+        <ol>
+          <li>Przejdź do: <strong>Zamówienia</strong> w panelu easySales i otwórz szczegóły wybranego zamówienia B2C (klient indywidualny, kraj: Polska).</li>
+          <li>Dodaj tag <code>PARAGON</code> do zamówienia (lub zmień jego status na skonfigurowany w regule, np. <i>Dostawa | Wysłane</i>).</li>
+          <li>Upewnij się, że w sekcji <strong>Metadane zamówienia</strong> (Order Metadata) automatycznie pojawił się wpis:<br>
+            <span class="badge-tag blue" style="font-family:monospace; font-size:0.85rem; margin-top:4px; display:inline-block;">Klucz: FISCAL &nbsp;|&nbsp; Wartość: 0</span>
+          </li>
+          <li>Działający w tle agent <strong>easyfiscal</strong> cyklicznie odczytuje zamówienia z flagą <code>FISCAL = 0</code>, pobiera pozycje koszyka, wysyła komendę wydruku na drukarkę fiskalną i rejestruje e-paragon w chmurze / repozytorium Ministerstwa Finansów (KAS).</li>
+        </ol>
+
+        <h4>Krok 3: Wygenerowanie linku do e-paragonu w metadanych zamówienia</h4>
+        <p>
+          Po zarejestrowaniu paragonu przez drukarkę fiskalną, <strong>easyfiscal</strong> odsyła informację zwrotną bezpośrednio do easySales:
+        </p>
+        <ul>
+          <li>W metadanych zamówienia wartość klucza <code>FISCAL</code> zostaje zaktualizowana (np. na <code>1</code> lub unikalny numer transakcji fiskalnej).</li>
+          <li>W metadanych zamówienia pojawia się pole z bezpośrednim, bezpiecznym linkiem do e-paragonu:
+            <div class="mockup-field-box" style="margin: 0.75rem 0; border-left: 3px solid #10B981;">
+              <div class="mockup-field-label">Metadane zamówienia (easySales Order Metadata)</div>
+              <div style="font-family:monospace; font-size:0.85rem; color:var(--text-main); margin-top:4px;">
+                <strong>Klucz:</strong> <code>eparagon_link</code> &nbsp;&rarr;&nbsp; <strong>Wartość:</strong> <code>https://paragon.easyfiscal.pl/view/ef-78491-a9c2b4</code>
+              </div>
+            </div>
+          </li>
+          <li>Klient końcowy po otwarciu linku otrzymuje pełnoprawny cyfrowy paragon fiskalny z możliwością pobrania pliku PDF lub weryfikacji podpisu cyfrowego.</li>
+        </ul>
+
+        <h4>Krok 4: Wysłanie linku do e-paragonu kupującemu w wiadomości e-mail</h4>
+        <p>
+          Ostatnim krokiem jest wdrożenie automatycznej wysyłki adresu e-paragonu do klienta w szablonie wiadomości e-mail w easySales:
+        </p>
+        <ol>
+          <li>W panelu easySales przejdź do: <strong>Ustawienia</strong> &rarr; <strong>Szablony e-mail</strong>.</li>
+          <li>Edytuj szablon potwierdzenia wysyłki zamówienia (lub stwórz dedykowany szablon <i>Twój e-paragon fiskalny</i>).</li>
+          <li>W treści szablonu umieść zmienną metadanych zamówienia zawierającą wygenerowany link do e-paragonu:
+            <div class="code-block-wrap" style="margin: 0.75rem 0;">
+              <div class="code-header">
+                <span class="code-lang-tag">PRZYKŁADOWY SZABLON WIADOMOŚCI E-MAIL W EASYSALES</span>
+                <button class="btn-copy">Kopiuj treść</button>
+              </div>
+              <pre><code>Dzień dobry,
+
+Dziękujemy za zakupy w naszym sklepie! Informujemy, że Twoje zamówienie zostało zrealizowane.
+
+Twój elektroniczny paragon fiskalny jest dostępny pod poniższym adresem:
+{{ order.meta_data.eparagon_link }}
+
+Dokument możesz w każdej chwili otworzyć na smartfonie, tablecie lub zapisać w pliku PDF.
+W razie pytań pozostajemy do dyspozycji.</code></pre>
+            </div>
+          </li>
+          <li>Aktywuj automatyczną wysyłkę wiadomości po spełnieniu warunku wygenerowania metadanej z linkiem e-paragonu.</li>
+        </ol>
+
+        <div class="callout info">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body">
+            <div class="callout-title">Automatyczna selekcja: Faktura B2B vs E-Paragon B2C</div>
+            Dzięki warunkowi <code>Kod firmy klienta Jest pusty</code> w regule easySales, zamówienia firmowe (B2B z numerem NIP) są automatycznie kierowane do wystawienia faktury VAT, natomiast zamówienia konsumenckie B2C otrzymują metadaną <code>FISCAL = 0</code> i są bezbłędnie fiskalizowane w easyfiscal. Zapobiega to podwójnemu opodatkowaniu transakcji.
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           ROZDZIAŁ 7: PERSONALIZACJA E-PARAGONU
+           ==================================================================== -->
+      <section class="doc-section" id="rozdzial-7">
+        <div class="section-header">
+          <span class="section-tag">Rozdział 7</span>
+          <h2 class="section-title">Personalizacja E-Paragonu (Moduł Marketingowy)</h2>
+          <p class="section-lead">
+            Przekształć formalny dokument fiskalny w narzędzie zwiększające rozpoznawalność marki i generujące powracających klientów.
+          </p>
+        </div>
+
+        <p>
+          W tradycyjnym e-commerce papierowy paragon ląduje w koszu lub gubi się w pudełku. 
+          W easyfiscal możesz wykorzystać moduł <strong>Personalizacji E-Paragonu</strong> (29 zł netto/mc w panelu <i>Moje konto</i>), 
+          aby dodać logo swojej marki, dynamiczne kody rabatowe oraz linki do mediów społecznościowych.
+        </p>
+
+        <!-- LIVE PREVIEW PARAGONU -->
+        <div class="tool-card" id="symulator-paragonu">
+          <div class="tool-header">
+            <div class="tool-title">
+              <span>🎨</span>
+              <strong>Interaktywny Podgląd Personalizacji E-Paragonu (Live Preview)</strong>
+            </div>
+            <span class="badge-tag gold">Podgląd na Żywo</span>
+          </div>
+
+          <div class="eparagon-simulator-grid">
+            <!-- Formularz ustawień -->
+            <div>
+              <div class="form-group" style="margin-bottom: 1rem;">
+                <label class="form-label">Nazwa Twojego Sklepu / Marki</label>
+                <input type="text" class="form-control" id="inputReceiptBrand" value="SHOPUJ.PL - SKLEP INTERNETOWY">
+              </div>
+
+              <div class="form-group" style="margin-bottom: 1rem;">
+                <label class="form-label">Komunikat Promocyjny / Kod Rabatowy</label>
+                <input type="text" class="form-control" id="inputReceiptPromo" value="10% RABATU NA KOLEJNE ZAKUPY Z KODEM: BIPE10">
+              </div>
+
+              <div class="form-group" style="margin-bottom: 1rem;">
+                <label class="form-label" style="display:flex; align-items:center; gap:0.5rem; cursor:pointer;">
+                  <input type="checkbox" id="toggleReceiptLogo" checked style="width:16px; height:16px; accent-color: var(--primary);">
+                  <span>Wyświetlaj logo w nagłówku e-paragonu</span>
+                </label>
+              </div>
+
+              <div class="callout success" style="margin-top: 1rem;">
+                <div class="callout-icon">⚡</div>
+                <div class="callout-body">
+                  <strong>Aktualizacja w czasie rzeczywistym:</strong> Zmiana tekstu lub grafiki w panelu easyfiscal aktualizuje się natychmiast, 
+                  również dla e-paragonów wygenerowanych w przeszłości!
+                </div>
+              </div>
+            </div>
+
+            <!-- Podgląd paragonu (Paper style) -->
+            <div class="receipt-preview-paper">
+              <div class="receipt-header">
+                <img src="assets/logoeasyfiscal.png" alt="Logo" class="receipt-logo-img" id="previewReceiptLogo">
+                <div class="receipt-brand-text" id="previewReceiptBrand">SHOPUJ.PL - SKLEP INTERNETOWY</div>
+                <div>NIP: 521-394-11-22</div>
+                <div>ul. Handlowa 15, 00-001 Warszawa</div>
+              </div>
+
+              <div style="text-align: center; font-weight: bold; margin-bottom: 0.5rem;">
+                PARAGON FISKALNY ELEKTRONICZNY
+              </div>
+
+              <div class="receipt-ad-banner" id="previewReceiptPromo">
+                10% RABATU NA KOLEJNE ZAKUPY Z KODEM: BIPE10
+              </div>
+
+              <div style="border-top: 1px dashed #9CA3AF; margin: 0.5rem 0;"></div>
+
+              <div class="receipt-item-row">
+                <span>1. Zestaw akcesoriów</span>
+                <span>129,00 A</span>
+              </div>
+              <div class="receipt-item-row">
+                <span>2. Dostawa kurier</span>
+                <span>14,99 A</span>
+              </div>
+
+              <div class="receipt-total-row">
+                <span>SUMA PLN:</span>
+                <span>143,99 PLN</span>
+              </div>
+
+              <div style="font-size: 0.7rem; margin-top: 0.5rem;">
+                PTU A 23%: 26,93 PLN
+              </div>
+
+              <div class="receipt-footer">
+                <div>NUMER UNIKATOWY: CKB19028472</div>
+                <div>CRK SYNC: 2026-10-21 15:42:01</div>
+                <div>Dokument zgodny z MF / Rozporządzenie 2021</div>
+                <div style="margin-top: 4px; font-weight: bold; color: var(--primary);">Zasila technologia: easyfiscal.pl</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           ROZDZIAŁ 8: RAPORTOWANIE I KSIĘGOWOŚĆ
+           ==================================================================== -->
+      <section class="doc-section" id="rozdzial-8">
+        <div class="section-header">
+          <span class="section-tag">Rozdział 8</span>
+          <h2 class="section-title">Raportowanie Dobowe i Optymalizacja Księgowości</h2>
+          <p class="section-lead">
+            Jak zamknąć dobę fiskalną o 23:59 i zredukować koszty biura rachunkowego nawet o 80%.
+          </p>
+        </div>
+
+        <h3>Automatyczny Raport Dobowy o 23:59</h3>
+        <p>
+          Tradycyjna obsługa kasy fiskalnej wymaga pamiętania o codziennym raporcie dobowym. 
+          W easyfiscal harmonogram wykonuje raport automatycznie o zadanej godzinie (zalecane: <strong>23:59:00</strong>). 
+          Raport jest wysyłany do CRK, a plik PDF/XML z zestawieniem stawek trafia bezpośrednio do archiwum księgowego.
+        </p>
+
+        <h3>Zaleta scalania paragonów w jeden zapis księgowy</h3>
+        <p>
+          Większość biur rachunkowych rozlicza się w oparciu o liczbę przetworzonych dokumentów (np. 1–2 zł netto za każdy wpis w rejestrze sprzedaży). 
+          Dzięki easyfiscal setki lub tysiące paragonów w ciągu miesiąca zastępowane są <strong>jedynie 30 zapisami raportów dobowych</strong>!
+        </p>
+
+        <!-- INTERAKTYWNY KALKULATOR ROI -->
+        <div class="tool-card" id="kalkulator-roi">
+          <div class="tool-header">
+            <div class="tool-title">
+              <span>🧮</span>
+              <strong>Kalkulator Oszczędności Finansowych i Czasowych (ROI)</strong>
+            </div>
+            <span class="badge-tag gold">Kalkulator Biznesowy</span>
+          </div>
+
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">
+            Wprowadź miesięczną liczbę zamówień B2C, aby oszacować miesięczną oszczędność na obsłudze księgowej i czasie pakowania:
+          </p>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Miesięczna Liczba Zamówień B2C</label>
+              <input type="number" class="form-control" id="calcOrderVolume" value="3000" min="100" max="100000" step="100">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Średni Koszt Księgowania 1 Dokumentu (zł)</label>
+              <input type="number" class="form-control" id="calcCostPerDoc" value="1.20" min="0.5" max="5.0" step="0.10">
+            </div>
+          </div>
+
+          <div class="calc-results-grid">
+            <div class="calc-stat-card">
+              <div class="calc-stat-val" id="calcResultSaved">3 564 zł</div>
+              <div class="calc-stat-label">Szacowana Oszczędność Księgowa / Mies.</div>
+            </div>
+            <div class="calc-stat-card">
+              <div class="calc-stat-val" id="calcResultHours">17 godz.</div>
+              <div class="calc-stat-label">Zaoszczędzony Czas Magazynierów / Mies.</div>
+            </div>
+            <div class="calc-stat-card">
+              <div class="calc-stat-val">0 rolek</div>
+              <div class="calc-stat-label">Zużycie Papieru Termicznego</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           ROZDZIAŁ 9: ROZWIĄZYWANIE PROBLEMÓW (FAQ)
+           ==================================================================== -->
+      <section class="doc-section" id="rozdzial-9">
+        <div class="section-header">
+          <span class="section-tag">Rozdział 9</span>
+          <h2 class="section-title">Rozwiązywanie Problemów (Troubleshooting & FAQ)</h2>
+          <p class="section-lead">
+            Odpowiedzi na najczęstsze pytania techniczne oraz matryca rozwiązywania problemów komunikacyjnych.
+          </p>
+        </div>
+
+        <div class="table-responsive">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Objaw / Komunikat</th>
+                <th>Prawdopodobna Przyczyna</th>
+                <th>Krok Naprawczy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Drukarka OFFLINE / Brak połączenia</strong></td>
+                <td>Rozłączenie kabla LAN, wyłączony router lub zmiana IP przez DHCP</td>
+                <td>1. Sprawdź diodę na gnieździe RJ-45.<br>2. Zweryfikuj ping do drukarki.<br>3. Upewnij się, że adres IP w easyfiscal zgadza się z adresem w drukarce.</td>
+              </tr>
+              <tr>
+                <td><strong>Błąd stawek VAT (Error 102)</strong></td>
+                <td>Towar z zamówienia ma stawkę nieobsługiwaną lub przypisaną do innej litery</td>
+                <td>Wejdź w <i>Ustawienia easyfiscal -> Mapowanie stawek VAT</i> i dopasuj litery A, B, C zgodnie z tabelą w Rozdziale 5.</td>
+              </tr>
+              <tr>
+                <td><strong>Czerwona dioda CRK na drukarce</strong></td>
+                <td>Brak dostępu urządzenia do serwerów Ministerstwa Finansów</td>
+                <td>Drukarka buforuje e-paragony w pamięci. Sprawdź bramę domyślną i serwery DNS (np. 8.8.8.8) w menu kasy.</td>
+              </tr>
+              <tr>
+                <td><strong>Błąd 401 Unauthorized API</strong></td>
+                <td>Token BaseLinker wygasł lub został usunięty w panelu</td>
+                <td>Wygeneruj nowy token w BaseLinkerze (<i>Moje konto -> API</i>) i zaktualizuj go w agencie.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Ważne zasady eksploatacji i logi systemowe</h3>
+        <div class="callout warning">
+          <div class="callout-icon">📌</div>
+          <div class="callout-body">
+            <div class="callout-title">Kluczowe zalecenia podczas codziennej pracy z aplikacją:</div>
+            <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+              <li><strong>Stan drukarki:</strong> Podczas pracy z aplikacją certyfikowana drukarka fiskalna musi być nieprzerwanie włączona i podłączona do sieci LAN/Wi-Fi.</li>
+              <li><strong>Komunikaty na ekranie (Novitus):</strong> W przypadku pojawienia się jakiegokolwiek komunikatu ostrzegawczego lub blokady na wyświetlaczu drukarki (dot. Novitus), należy usunąć go fizycznym przyciskiem <strong>„C”</strong> na klawiaturze urządzenia, aby wznowić automatyczną pracę.</li>
+              <li><strong>Czas generowania dokumentów:</strong> Po oznaczeniu zamówień do wystawienia e-paragonu w integratorze (np. BaseLinker lub Sellasist), e-paragony powinny zacząć rejestrować się na drukarce fiskalnej <strong>nie później niż po 60 sekundach</strong>.</li>
+              <li><strong>Weryfikacja protokołu:</strong> Jeżeli przy uruchomieniu aplikacji pojawia się komunikat o braku komunikacji, w pierwszej kolejności upewnij się, że protokół drukarki to <strong>XML</strong> (Novitus) lub <strong>POSNET / TCP 6002</strong> (Posnet).</li>
+            </ul>
+          </div>
+        </div>
+
+        <h4>Ścieżka do plików dziennika (Logi aplikacji)</h4>
+        <p>
+          W przypadku konieczności diagnostyki lub kontaktu z pomocą techniczną, pliki logów znajdziesz w folderze:
+        </p>
+        <div class="code-block-wrap">
+          <div class="code-header">
+            <span class="code-lang-tag">ŚCIEŻKA DO PLIKÓW LOGÓW</span>
+            <button class="btn-copy">Kopiuj</button>
+          </div>
+          <pre><code># Ścieżka w systemie Windows:
+C:\Users\nazwa_użytkownika\AppData\Local\easyfiscal\logs
+
+# Uwaga: Folder AppData może być domyślnie ukryty w Eksploratorze Windows. 
+# Aby go wyświetlić, zaznacz opcję: Widok -> Pokaż -> Ukryte elementy.
+
+# Zmiana tokenu w pliku konfiguracyjnym:
+C:\Users\nazwa_użytkownika\AppData\Roaming\easyfiscal\easyfiscal.cfg</code></pre>
+        </div>
+        <p>Jeśli potrzebujesz pomocy inżyniera wdrożeniowego, jesteśmy dostępni:</p>
+        <ul>
+          <li><strong>Infolinia techniczna:</strong> <a href="tel:+48455568668">+48 455 568 668</a> lub <a href="tel:+48600652449">+48 600 652 449</a></li>
+          <li><strong>E-mail wsparcia:</strong> <a href="mailto:support@easyfiscal.pl">support@easyfiscal.pl</a></li>
+          <li><strong>Dział wdrożeń:</strong> <a href="mailto:wdrozenie@easyfiscal.pl">wdrożenie@easyfiscal.pl</a> (dostępna usługa wdrożenia zdalnego pod klucz od 500 zł netto)</li>
+        </ul>
+      </section>
+
+      <!-- ====================================================================
+           ZAŁĄCZNIK: CHECKLISTA WDROŻENIOWA
+           ==================================================================== -->
+      <section class="doc-section" id="zalacznik-checklist">
+        <div class="section-header">
+          <span class="section-tag">Załącznik A</span>
+          <h2 class="section-title">Wdrożeniowa Lista Kontrolna (Checklist)</h2>
+          <p class="section-lead">
+            Odznacz kolejne kroki, aby mieć 100% pewności, że Twój system e-paragonów działa bezbłędnie. Twój postęp jest automatycznie zapisywany!
+          </p>
+        </div>
+
+        <div class="checklist-container">
+          <label class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox">
+            <div class="checklist-label">
+              <span class="checklist-text">Krok 1: Weryfikacja kompatybilności drukarki online</span>
+              <span class="checklist-subtext">Certyfikowane urządzenie fiskalne online z firmware min. 2.20 (Standard 1, 2 lub 3)</span>
+            </div>
+          </label>
+
+          <label class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox">
+            <div class="checklist-label">
+              <span class="checklist-text">Krok 2: Podłączenie kabla Ethernet LAN i stałe IP</span>
+              <span class="checklist-subtext">Statyczny adres IP lub rezerwacja MAC w DHCP routera</span>
+            </div>
+          </label>
+
+          <label class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox">
+            <div class="checklist-label">
+              <span class="checklist-text">Krok 3: Wyłączenie fizycznego zadruku w drukarce</span>
+              <span class="checklist-subtext">Włączenie trybu e-paragonu w menu serwisowym urządzenia</span>
+            </div>
+          </label>
+
+          <label class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox">
+            <div class="checklist-label">
+              <span class="checklist-text">Krok 4: Wykupienie subskrypcji easyfiscal</span>
+              <span class="checklist-subtext">Aktywny pakiet na easyfiscal.pl/cennik/</span>
+            </div>
+          </label>
+
+          <label class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox">
+            <div class="checklist-label">
+              <span class="checklist-text">Krok 5: Instalacja agenta easyfiscal na stacji roboczej</span>
+              <span class="checklist-subtext">Wprowadzenie klucza licencji i włączenie autostartu</span>
+            </div>
+          </label>
+
+          <label class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox">
+            <div class="checklist-label">
+              <span class="checklist-text">Krok 6: Podłączenie tokenu API BaseLinker / easySales</span>
+              <span class="checklist-subtext">Pomyślna autoryzacja i pobranie struktury statusów</span>
+            </div>
+          </label>
+
+          <label class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox">
+            <div class="checklist-label">
+              <span class="checklist-text">Krok 7: Weryfikacja przypisania stawek VAT (A=23%, B=8% itp.)</span>
+              <span class="checklist-subtext">Sprawdzenie zgodności matrycy podatkowej</span>
+            </div>
+          </label>
+
+          <label class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox">
+            <div class="checklist-label">
+              <span class="checklist-text">Krok 8: Wystawienie testowego e-paragonu</span>
+              <span class="checklist-subtext">Sprawdzenie wygenerowania linku [pole_dodatkowe_eparagon_url]</span>
+            </div>
+          </label>
+
+          <label class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox">
+            <div class="checklist-label">
+              <span class="checklist-text">Krok 9: Ustawienie raportu dobowego o 23:59</span>
+              <span class="checklist-subtext">Automatyczne zamykanie doby fiskalnej</span>
+            </div>
+          </label>
+
+          <label class="checklist-item">
+            <input type="checkbox" class="checklist-checkbox">
+            <div class="checklist-label">
+              <span class="checklist-text">Krok 10: Konfiguracja modułu personalizacji e-paragonu</span>
+              <span class="checklist-subtext">Wgranie logo sklepu i dodanie kodu rabatowego dla klientów</span>
+            </div>
+          </label>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ========================================================================
+       FOOTER
+       ======================================================================== -->
+  <footer class="docs-footer">
+    <div class="footer-inner">
+      <div>
+        <strong>easyfiscal sp. z o.o.</strong> • Oficjalne rozwiązanie e-paragonów dla e-commerce
+        <br>
+        <span style="color: var(--text-subtle); font-size: 0.8rem;">
+          Zgodne z wymogami Ministerstwa Finansów oraz Centralnego Repozytorium Kas (CRK).
+        </span>
+      </div>
+
+      <ul class="footer-links">
+        <li><a href="https://easyfiscal.pl" target="_blank" rel="noopener">Strona Główna</a></li>
+        <li><a href="https://easyfiscal.pl/cennik/" target="_blank" rel="noopener">Cennik</a></li>
+        <li><a href="https://emarserwis.pl" target="_blank" rel="noopener">Partner EMAR SERWIS</a></li>
+        <li><a href="#" onclick="window.print(); return false;">Drukuj / A4</a></li>
+        <li><a href="#hero">Do góry ↑</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
