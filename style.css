@@ -1419,126 +1419,211 @@ pre {
 }
 
 /* Bezel i Ekran */
+/* Bezel i Ekran Drukarki Fiskalnej (Fizyczny Render Sprzętowy) */
 .printer-bezel {
-  background: #0A0D14;
-  border: 3px solid #1E2638;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.8);
+  background: linear-gradient(180deg, #182030 0%, #0F1624 50%, #0A0D15 100%);
+  border: 2px solid #2B384E;
+  border-bottom: 3px solid #161D2B;
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.1), inset 0 -2px 4px rgba(0,0,0,0.8);
+  position: relative;
+}
+
+/* Wskaźniki LED stanu urządzenia (PWR, LAN, CRK) */
+.printer-bezel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 0 4px;
+}
+.printer-device-brand {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #64748B;
+  text-transform: uppercase;
+}
+.printer-led-panel {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.printer-led {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6rem;
+  font-family: var(--font-mono);
+  color: #64748B;
+  font-weight: 600;
+}
+.led-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  background: #334155;
+}
+.led-green {
+  background: #10B981;
+  box-shadow: 0 0 6px #10B981;
+}
+.led-blue {
+  background: #0EA5E9;
+  box-shadow: 0 0 6px #0EA5E9;
+}
+.led-orange {
+  background: #F59E0B;
+  box-shadow: 0 0 6px #F59E0B;
 }
 
 .printer-screen {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.78rem;
-  line-height: 1.35;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.77rem;
+  line-height: 1.4;
   padding: 10px 12px;
   border-radius: 4px;
   min-height: 130px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
   white-space: pre-wrap;
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.9);
 }
 
-/* Subtelny raster ekranu */
+/* Subtelny raster matrycy punktowej LCD / scanlines */
 .printer-screen::before {
   content: "";
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-  background-size: 100% 4px;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.18) 0px,
+    rgba(0, 0, 0, 0.18) 1px,
+    transparent 1px,
+    transparent 3px
+  );
   pointer-events: none;
-  opacity: 0.4;
+  opacity: 0.65;
+  z-index: 1;
 }
 
-/* Standard 1: Graficzny LCD - Zielono-morski podświetlany */
+/* Szklany odblask na wyświetlaczu */
+.printer-screen::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.printer-screen * {
+  position: relative;
+  z-index: 3;
+}
+
+/* Standard 1: Graficzny LCD - Autentyczna matryca Novitus (zielono-morska) */
 .screen-lcd-matrix {
-  background: #021B18;
+  background: #041F1A;
   color: #34D399;
-  border: 1px solid #059669;
-  text-shadow: 0 0 5px rgba(52, 211, 153, 0.6);
+  border: 1px solid #065F46;
+  text-shadow: 0 0 4px rgba(52, 211, 153, 0.7);
 }
 .screen-lcd-matrix .screen-bar {
-  border-bottom: 1px dashed #059669;
+  border-bottom: 1px dashed rgba(52, 211, 153, 0.4);
   padding-bottom: 4px;
   margin-bottom: 4px;
   color: #A7F3D0;
   display: flex;
   justify-content: space-between;
+  font-weight: 700;
 }
 .screen-lcd-matrix .cursor-line {
-  background: rgba(52, 211, 153, 0.2);
+  background: rgba(52, 211, 153, 0.22);
   font-weight: 700;
-  border-left: 2px solid #34D399;
-  padding-left: 3px;
+  border-left: 3px solid #34D399;
+  padding-left: 4px;
+  color: #ECFDF5;
 }
 
-/* Standard 2: Wieloliniowy OLED - Kontrastowy błękit / biel */
+/* Standard 2: Wysokokontrastowy OLED - Posnet błękitno-biały */
 .screen-oled-blue {
-  background: #040810;
+  background: #020713;
   color: #38BDF8;
-  border: 1px solid #0284C7;
-  text-shadow: 0 0 6px rgba(56, 189, 248, 0.5);
+  border: 1px solid #0369A1;
+  text-shadow: 0 0 5px rgba(56, 189, 248, 0.6);
 }
 .screen-oled-blue .screen-bar {
-  border-bottom: 1px solid #0284C7;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.5);
   padding-bottom: 4px;
   margin-bottom: 4px;
   color: #BAE6FD;
   display: flex;
   justify-content: space-between;
+  font-weight: 700;
 }
 .screen-oled-blue .cursor-line {
   background: #38BDF8;
-  color: #040810;
-  font-weight: 700;
+  color: #030712;
+  font-weight: 800;
   text-shadow: none;
-  padding: 0 4px;
+  padding: 1px 5px;
   border-radius: 2px;
 }
 
-/* Standard 3: Alfanumeryczny 4-liniowy VFD - Turkus VFD */
+/* Standard 3: Alfanumeryczny VFD - Elzab turkus fluor */
 .screen-vfd-cyan {
-  background: #001217;
+  background: #01141A;
   color: #22D3EE;
-  border: 1px solid #0891B2;
-  text-shadow: 0 0 8px rgba(34, 211, 238, 0.7);
+  border: 1px solid #0E7490;
+  text-shadow: 0 0 7px rgba(34, 211, 238, 0.85);
 }
 .screen-vfd-cyan .screen-bar {
-  border-bottom: 1px dotted #0891B2;
+  border-bottom: 1px dotted rgba(34, 211, 238, 0.5);
   padding-bottom: 4px;
   margin-bottom: 4px;
   color: #CFFAFE;
   display: flex;
   justify-content: space-between;
+  font-weight: 700;
 }
 .screen-vfd-cyan .cursor-line {
-  background: rgba(34, 211, 238, 0.25);
+  background: rgba(34, 211, 238, 0.28);
   font-weight: 700;
-  border-left: 2px solid #22D3EE;
-  padding-left: 3px;
+  border-left: 3px solid #22D3EE;
+  padding-left: 4px;
+  color: #F0FDFF;
 }
 
-/* Klawisze sprzętowe drukarki pod ekranem */
+/* Klawisze sprzętowe drukarki pod ekranem (Wypukłe, dotykowe) */
 .printer-hardware-buttons {
   display: flex;
   justify-content: center;
   gap: 8px;
-  margin-top: 10px;
+  margin-top: 12px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 .hardware-key {
-  background: #1E2738;
-  border: 1px solid #334155;
-  color: #94A3B8;
+  background: linear-gradient(180deg, #2A364B 0%, #1A2232 100%);
+  border: 1px solid #3B4A65;
+  border-bottom: 2px solid #0F172A;
+  color: #CBD5E1;
   font-size: 0.68rem;
   font-family: var(--font-mono);
   font-weight: 700;
-  padding: 3px 8px;
+  padding: 4px 10px;
   border-radius: 4px;
-  box-shadow: 0 2px 0 #0F172A;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  letter-spacing: 0.03em;
+  user-select: none;
 }
 
 /* ==========================================================================
