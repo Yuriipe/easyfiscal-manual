@@ -1,6 +1,6 @@
 /**
  * easyfiscal - Oficjalny Portal Dokumentacji i Podręcznik Wdrożeniowy
- * Interaktywna logika aplikacji (app.js)
+ * Skrócona, bezbłędna logika interfejsu (app.js)
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -9,13 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollSpy();
   initSearch();
   initCopyButtons();
-  initPrinterTabs();
-  initBaseLinkerSimulator();
-  initReceiptPersonalizer();
   initChecklist();
-  initRoiCalculator();
-  initTerminalSimulator();
-  initSellasistSimulator();
 });
 
 /* ==========================================================================
@@ -62,7 +56,6 @@ function initSidebar() {
       sidebar.classList.toggle('open');
     });
 
-    // Zamknij sidebar po kliknięciu linku na urządzeniu mobilnym
     const navLinks = sidebar.querySelectorAll('.nav-item a');
     navLinks.forEach(link => {
       link.addEventListener('click', () => {
@@ -84,7 +77,6 @@ function initScrollSpy() {
   const progressPercentText = document.getElementById('progressPercentText');
 
   window.addEventListener('scroll', () => {
-    // Oblicz postęp czytania
     const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = totalHeight > 0 ? (window.scrollY / totalHeight) * 100 : 0;
     const clampedProgress = Math.min(Math.max(Math.round(progress), 0), 100);
@@ -92,7 +84,6 @@ function initScrollSpy() {
     if (progressBar) progressBar.style.width = clampedProgress + '%';
     if (progressPercentText) progressPercentText.textContent = clampedProgress + '%';
 
-    // ScrollSpy aktywnych sekcji
     let currentSectionId = '';
     const scrollPos = window.scrollY + 120;
 
@@ -141,7 +132,6 @@ function initSearch() {
     });
   });
 
-  // Skrót klawiszowy Ctrl+K / Cmd+K do fokusowania szukajki
   window.addEventListener('keydown', (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
       e.preventDefault();
@@ -156,16 +146,8 @@ function initSearch() {
 function initCopyButtons() {
   document.querySelectorAll('.btn-copy').forEach(btn => {
     btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-target');
-      let textToCopy = '';
-
-      if (targetId) {
-        const targetEl = document.getElementById(targetId);
-        if (targetEl) textToCopy = targetEl.innerText;
-      } else {
-        const pre = btn.closest('.code-block-wrap').querySelector('pre');
-        if (pre) textToCopy = pre.innerText;
-      }
+      const pre = btn.closest('.code-block-wrap').querySelector('pre');
+      let textToCopy = pre ? pre.innerText : '';
 
       if (textToCopy) {
         navigator.clipboard.writeText(textToCopy).then(() => {
@@ -185,266 +167,74 @@ function initCopyButtons() {
 }
 
 /* ==========================================================================
-   6. Przełączanie Zakładek Schematów Wyświetlacza Drukarek
-   ========================================================================== */
-function initPrinterTabs() {
-  const tabBtns = document.querySelectorAll('.printer-tab-btn');
-  const tabPanes = document.querySelectorAll('.printer-tab-pane');
-
-  tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('data-tab');
-
-      tabBtns.forEach(b => b.classList.remove('active'));
-      tabPanes.forEach(p => p.classList.remove('active'));
-
-      btn.classList.add('active');
-      const targetPane = document.getElementById(targetId);
-      if (targetPane) {
-        targetPane.classList.add('active');
-      }
-    });
-  });
-}
-
-/* ==========================================================================
-   7. Interaktywny Generator Reguł BaseLinker
-   ========================================================================== */
-function initBaseLinkerSimulator() {
-  const eventSelect = document.getElementById('blEventSelect');
-  const statusSelect = document.getElementById('blStatusSelect');
-  const invoiceCondition = document.getElementById('blInvoiceCondition');
-  const previewBox = document.getElementById('blRulePreview');
-
-  function updateRule() {
-    if (!previewBox) return;
-    const evt = eventSelect ? eventSelect.value : 'Zmiana statusu zamówienia';
-    const st = statusSelect ? statusSelect.value : 'Spakowane';
-    const inv = invoiceCondition && invoiceCondition.checked ? 'TAK (Tylko B2C: Chce fakturę = NIE)' : 'Dla wszystkich zamówień';
-
-    previewBox.innerHTML = `
-<span style="color: var(--primary);">[ZDARZENIE]:</span> ${evt} -> "${st}"
-<span style="color: var(--primary);">[WARUNEK]:</span> ${inv}
-<span style="color: var(--primary);">[AKCJA WYWOŁANA]:</span> Wyślij Webhook do agenta easyfiscal
-<span style="color: var(--primary);">[PAYLOAD]:</span> { "order_id": "[id_zamowienia]", "action": "fiscalize_receipt" }
-<span style="color: var(--success);">[ZWROT DO BASE]:</span> Zapis linku e-paragonu w polu dodatkowym: [pole_dodatkowe_eparagon_url]
-    `;
-  }
-
-  if (eventSelect) eventSelect.addEventListener('change', updateRule);
-  if (statusSelect) statusSelect.addEventListener('change', updateRule);
-  if (invoiceCondition) invoiceCondition.addEventListener('change', updateRule);
-}
-
-/* ==========================================================================
-   8. Interaktywny Live Preview Personalizacji E-Paragonu
-   ========================================================================== */
-function initReceiptPersonalizer() {
-  const brandInput = document.getElementById('inputReceiptBrand');
-  const promoInput = document.getElementById('inputReceiptPromo');
-  const previewBrand = document.getElementById('previewReceiptBrand');
-  const previewPromo = document.getElementById('previewReceiptPromo');
-  const toggleLogo = document.getElementById('toggleReceiptLogo');
-  const receiptLogo = document.getElementById('previewReceiptLogo');
-
-  if (brandInput && previewBrand) {
-    brandInput.addEventListener('input', () => {
-      previewBrand.textContent = brandInput.value || 'TWÓJ SKLEP INTERNETOWY';
-    });
-  }
-
-  if (promoInput && previewPromo) {
-    promoInput.addEventListener('input', () => {
-      previewPromo.textContent = promoInput.value || '10% RABATU NA KOLEJNE ZAKUPY Z KODEM: BIPE10';
-    });
-  }
-
-  if (toggleLogo && receiptLogo) {
-    toggleLogo.addEventListener('change', () => {
-      receiptLogo.style.display = toggleLogo.checked ? 'inline-block' : 'none';
-    });
-  }
-}
-
-/* ==========================================================================
-   9. Wdrożeniowa Lista Kontrolna (Checklist w localStorage)
+   6. Interaktywna Checklista Wdrożeniowa
    ========================================================================== */
 function initChecklist() {
   const checkboxes = document.querySelectorAll('.checklist-checkbox');
   const countBadge = document.getElementById('checklistCompletedCount');
-  const totalCount = checkboxes.length;
+  const STORAGE_KEY = 'easyfiscal_checklist_v3';
 
-  function loadState() {
-    let completed = 0;
-    checkboxes.forEach((cb, idx) => {
-      const isChecked = localStorage.getItem('ef_chk_' + idx) === 'true';
-      cb.checked = isChecked;
-      const parent = cb.closest('.checklist-item');
-      if (parent) {
-        if (isChecked) parent.classList.add('checked');
-        else parent.classList.remove('checked');
-      }
-      if (isChecked) completed++;
-    });
-
+  function updateBadge(completed, total) {
     if (countBadge) {
-      countBadge.textContent = `${completed}/${totalCount}`;
+      countBadge.textContent = `${completed}/${total}`;
+      if (completed === total && total > 0) {
+        countBadge.classList.add('completed');
+      } else {
+        countBadge.classList.remove('completed');
+      }
     }
   }
 
-  checkboxes.forEach((cb, idx) => {
+  function saveState() {
+    const state = [];
+    checkboxes.forEach((cb, index) => {
+      state.push({ index, checked: cb.checked });
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }
+
+  function loadState() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        parsed.forEach(item => {
+          if (checkboxes[item.index]) {
+            checkboxes[item.index].checked = item.checked;
+            const parent = checkboxes[item.index].closest('.checklist-item');
+            if (parent) {
+              if (item.checked) parent.classList.add('checked');
+              else parent.classList.remove('checked');
+            }
+          }
+        });
+      }
+    } catch (e) {
+      console.warn('Nie udało się wczytać stanu checklisty', e);
+    }
+
+    let completed = 0;
+    checkboxes.forEach(cb => {
+      if (cb.checked) completed++;
+    });
+    updateBadge(completed, checkboxes.length);
+  }
+
+  checkboxes.forEach(cb => {
     cb.addEventListener('change', () => {
-      localStorage.setItem('ef_chk_' + idx, cb.checked ? 'true' : 'false');
       const parent = cb.closest('.checklist-item');
       if (parent) {
         if (cb.checked) parent.classList.add('checked');
         else parent.classList.remove('checked');
       }
-      loadState();
+      saveState();
+      let completed = 0;
+      checkboxes.forEach(c => {
+        if (c.checked) completed++;
+      });
+      updateBadge(completed, checkboxes.length);
     });
   });
 
   loadState();
-}
-
-/* ==========================================================================
-   10. Kalkulator Oszczędności Księgowych (ROI)
-   ========================================================================== */
-function initRoiCalculator() {
-  const volumeInput = document.getElementById('calcOrderVolume');
-  const costPerDocInput = document.getElementById('calcCostPerDoc');
-  const resultSavedEl = document.getElementById('calcResultSaved');
-  const resultHoursEl = document.getElementById('calcResultHours');
-
-  function calculate() {
-    if (!volumeInput || !resultSavedEl) return;
-    const orders = parseInt(volumeInput.value, 10) || 1000;
-    const costPerDoc = parseFloat(costPerDocInput.value) || 1.20;
-
-    // Koszt tradycyjnego księgowania = zamówienia * koszt
-    // Z easyfiscal = 30 raportów dobowych miesięcznie * koszt
-    const traditionalCost = orders * costPerDoc;
-    const easyfiscalCost = 30 * costPerDoc;
-    const savedMoney = Math.max(traditionalCost - easyfiscalCost, 0);
-
-    // Oszczędność czasu na pakowaniu (ok. 20 sek na paragon fizyczny)
-    const hoursSaved = Math.round((orders * 20) / 3600);
-
-    resultSavedEl.textContent = savedMoney.toLocaleString('pl-PL', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + ' zł';
-    if (resultHoursEl) {
-      resultHoursEl.textContent = hoursSaved + ' godz.';
-    }
-  }
-
-  if (volumeInput) volumeInput.addEventListener('input', calculate);
-  if (costPerDocInput) costPerDocInput.addEventListener('input', calculate);
-  calculate();
-}
-
-/* ==========================================================================
-   11. Interaktywny Symulator Terminala easyfiscal (First-run CLI)
-   ========================================================================== */
-function initTerminalSimulator() {
-  const container = document.getElementById('terminalStepsContainer');
-  if (!container) return;
-
-  const btnStep1 = document.getElementById('termBtnStep1');
-  const btnStep2 = document.getElementById('termBtnStep2');
-  const btnStep3 = document.getElementById('termBtnStep3');
-  const btnStep4 = document.getElementById('termBtnStep4');
-  const btnStep5 = document.getElementById('termBtnStep5');
-  const btnReset = document.getElementById('termBtnReset');
-
-  const baseLogs = `
-<div><span class="t-info">[INFO]</span> Uruchamianie wersji aplikacji easyfiscal 1.2.1</div>
-<div><span class="t-info">[INFO]</span> Baza danych znaleziona</div>
-<div><span class="t-info">[INFO]</span> Sprawdzanie katalogu konfiguracji ................... <span class="t-ok">OK!</span></div>
-<div><span class="t-warn">[WARN]</span> Sprawdzanie, czy plik konfiguracyjny istnieje ......... <span class="t-warn">BRAKUJĄCE ELEMENTY - TWORZENIE W TOKU</span></div>
-<div><span class="t-info">[INFO]</span> Rozpoczęcie konfiguracji easyfiscal</div>
-<div style="margin: 6px 0; color: #94A3B8;">Wygląda na to, że to nasze pierwsze spotkanie. Zanim przejdziemy dalej, muszę Ci zadać kilka pytań.</div>
-`;
-
-  const stepsHtml = {
-    1: `
-${baseLogs}
-<div><span class="t-prompt">Podaj swój token easyfiscal którego dostałaś(-eś) drogą mailową:</span> <span class="t-input">ef_live_8f93a1c904e284b23d</span> █</div>
-`,
-    2: `
-${baseLogs}
-<div><span class="t-prompt">Podaj swój token easyfiscal:</span> <span class="t-input">ef_live_8f93a1c904e284b23d</span> <span class="t-ok">✓ OK</span></div>
-<div style="margin-top:4px;"><span class="t-prompt">? Wybierz źródło danych:</span></div>
-<div style="color: #34D399; font-weight:700;">❯ baselinker</div>
-<div style="color: #64748B;">  sellasist</div>
-`,
-    3: `
-${baseLogs}
-<div><span class="t-prompt">Podaj swój token easyfiscal:</span> <span class="t-input">ef_live_8f93a1c904e284b23d</span> <span class="t-ok">✓ OK</span></div>
-<div><span class="t-ok">✔ Wybierz źródło danych:</span> <span class="t-input">baselinker</span></div>
-<div style="margin-top:4px;"><span class="t-prompt">Podaj swój token BaseLinker, który jest potrzebny do sprawdzenia dokumentów w BaseLinker:</span> <span class="t-input">4002891-3004812-XXXXXXXXXXXXXXXX</span> █</div>
-`,
-    4: `
-${baseLogs}
-<div><span class="t-prompt">Podaj swój token easyfiscal:</span> <span class="t-input">ef_live_8f93a1c904e284b23d</span> <span class="t-ok">✓ OK</span></div>
-<div><span class="t-ok">✔ Wybierz źródło danych:</span> <span class="t-input">baselinker</span></div>
-<div><span class="t-prompt">Podaj swój token BaseLinker:</span> <span class="t-input">4002891-3004812-XXXXXXXXXXXXXXXX</span> <span class="t-ok">✓ OK</span></div>
-<div style="margin-top:4px;"><span class="t-prompt">? Wybierz producenta drukarki:</span></div>
-<div style="color: #34D399; font-weight:700;">❯ NOVITUS</div>
-<div style="color: #64748B;">  POSNET</div>
-`,
-    5: `
-${baseLogs}
-<div><span class="t-prompt">Podaj swój token easyfiscal:</span> <span class="t-input">ef_live_8f93a1c904e284b23d</span> <span class="t-ok">✓ OK</span></div>
-<div><span class="t-ok">✔ Wybierz źródło danych:</span> <span class="t-input">baselinker</span></div>
-<div><span class="t-prompt">Podaj swój token BaseLinker:</span> <span class="t-input">4002891-3004812-XXXXXXXXXXXXXXXX</span> <span class="t-ok">✓ OK</span></div>
-<div><span class="t-ok">✔ Wybierz producenta drukarki:</span> <span class="t-input">NOVITUS</span></div>
-<div style="margin-top:4px;"><span class="t-prompt">? Czy chcesz szukać IP drukarki automatycznie czy manualnie?</span></div>
-<div style="color: #34D399; font-weight:700;">❯ auto</div>
-<div style="color: #64748B;">  manual</div>
-<div style="margin-top:8px;"><span class="t-info">[INFO]</span> Szukam drukarki w sieci LAN ........................ <span class="t-ok">ZNALEZIONO (192.168.1.150:8000)</span></div>
-<div><span class="t-info">[INFO]</span> Zapisano konfigurację do easyfiscal.cfg .......... <span class="t-ok">OK!</span></div>
-<div style="color: #34D399; font-weight: 700; margin-top: 6px;">✨ easyfiscal jest gotowy do wystawiania e-paragonów! Kolejka aktywna.</div>
-`
-  };
-
-  function renderStep(stepNum) {
-    container.innerHTML = stepsHtml[stepNum] || stepsHtml[1];
-    const termBody = document.getElementById('terminalOutput');
-    if (termBody) termBody.scrollTop = termBody.scrollHeight;
-  }
-
-  if (btnStep1) btnStep1.addEventListener('click', () => renderStep(1));
-  if (btnStep2) btnStep2.addEventListener('click', () => renderStep(2));
-  if (btnStep3) btnStep3.addEventListener('click', () => renderStep(3));
-  if (btnStep4) btnStep4.addEventListener('click', () => renderStep(4));
-  if (btnStep5) btnStep5.addEventListener('click', () => renderStep(5));
-  if (btnReset) btnReset.addEventListener('click', () => renderStep(1));
-
-  renderStep(1);
-}
-
-/* ==========================================================================
-   12. Interaktywny Generator Klucza API Sellasist
-   ========================================================================== */
-function initSellasistSimulator() {
-  const btn = document.getElementById('btnGenSellasistKey');
-  const resultBox = document.getElementById('sellasistKeyResult');
-  const nameInput = document.getElementById('sellasistKeyName');
-
-  if (!btn || !resultBox) return;
-
-  btn.addEventListener('click', () => {
-    const keyName = nameInput ? (nameInput.value.trim() || 'API easyfiscal') : 'API easyfiscal';
-    const randKey = 'sec_' + Array.from({length: 32}, () => Math.floor(Math.random() * 16).toString(16)).join('');
-
-    resultBox.innerHTML = `
-<span style="color: var(--success); font-weight:700;">✓ Klucz API dla Sellasist został pomyślnie wygenerowany!</span>
-<div style="margin-top: 6px; line-height: 1.5;">
-  <div><strong>Wyświetlana nazwa:</strong> ${keyName}</div>
-  <div><strong>Status:</strong> <span style="color:#34D399;">Aktywny (Pełne uprawnienia do zamówień i paragonów)</span></div>
-  <div style="margin-top:4px;"><strong>Wygenerowany Klucz API (Token):</strong></div>
-  <code style="display:block; padding: 6px 8px; background: rgba(0,0,0,0.4); border-radius: 4px; color: #FDE047; word-break: break-all; margin: 4px 0;">${randKey}</code>
-  <span style="font-size: 0.8rem; color: var(--text-muted);">Skopiuj powyższy klucz i wklej go w aplikacji easyfiscal przy wyborze integratora <code>sellasist</code>.</span>
-</div>
-    `;
-  });
 }
